@@ -27,7 +27,7 @@ use kartik\date\DatePicker;
                 ]);?>
     <?= $form->field($model, 'amount')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'drcr_ind')->dropDownList(['D'=>'Payment','C'=>'Receiving'],['prompt'=>'--Select--']) ?>
+    <?= $form->field($model, 'drcr_ind')->dropDownList(['C'=>'Payment','D'=>'Receiving'],['prompt'=>'--Select--']) ?>
 
 
     <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>

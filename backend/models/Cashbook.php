@@ -24,8 +24,8 @@ class Cashbook extends \yii\db\ActiveRecord
      * @inheritdoc
      */
 
-    const PAYMENT='D';
-    const RECEIPT='C';
+    const PAYMENT='C';
+    const RECEIPT='D';
 
     public static function tableName()
     {
