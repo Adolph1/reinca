@@ -14,18 +14,12 @@ class m170113_155844_create_tbl_product_table extends Migration
     {
         $this->createTable('tbl_product', [
             'id' => $this->primaryKey(),
-            'product_code'=>$this->string(50)->unique()->notNull(),
-            'barcode'=>$this->string(50)->unique()->notNull(),
             'product_name'=>$this->string(200)->notNull(),
             'description'=>$this->text(),
             'category'=>$this->integer()->notNull(),
-            'image'=>$this->string(200)->notNull(),
             'status'=>$this->integer()->notNull(),
             'maker_id'=>$this->string(200)->notNull(),
             'maker_time'=>$this->dateTime()->notNull(),
-            'auth_status'=>$this->char(1),
-            'checker_id'=>$this->string(200)->notNull(),
-            'checker_time'=>$this->dateTime()->notNull(),
 
         ]);
 

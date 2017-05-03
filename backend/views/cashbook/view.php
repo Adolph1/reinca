@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\PurchaseMaster */
+/* @var $model backend\models\Cashbook */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Purchase Masters'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Cashbooks'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="purchase-master-view">
+<div class="cashbook-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,11 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+            'trn_dt',
+            'amount',
+            'drcr_ind',
             'description',
-            'period',
-            'financial_year',
             'maker_id',
             'maker_time',
+            'auth_status',
+            'checker_id',
+            'checker_time',
         ],
     ]) ?>
 

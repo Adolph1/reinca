@@ -75,7 +75,7 @@ desired effect
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>A</b>LT</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>BS</b></span>
+            <span class="logo-lg"><b>Reinca Portal</b></span>
         </a>
 
         <!-- Header Navbar -->
@@ -308,7 +308,7 @@ desired effect
                                     "icon" => "fa fa-angle-double-right",
                                 ],
                                 [
-                                    "label" => "Receipts",
+                                    "label" => "Transactions",
                                     "url" =>  ["/sales/index"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
@@ -335,11 +335,7 @@ desired effect
                                     "url" => ["/purchase/index"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
-                                [
-                                    "label" => "Suppliers",
-                                    "url" => ["/supplier/index"],
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
+
                                 [
                                     "label" => "Costs",
                                     "url" => ["/purchase-cost/index"],
@@ -347,13 +343,57 @@ desired effect
                                 ],
                             ],
                         ],
-                        ["label" =>Yii::t('app','Returns'), "url" =>  ["/product-return/index"], "icon" => "fa fa-refresh",],
+                        [
+                            'visible' => yii::$app->User->can('accountant')||yii::$app->User->can('admin'),
+                            "label" =>Yii::t('app','Accounting'),
+                            "url" => "#",
+                            "icon" => "fa fa-money",
+                            "items" => [
+                                [
+                                    "label" => "Cashbook",
+                                    "url" => ["/cashbook/index"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
+                                [
+                                    "label" => "Payments",
+                                    "url" => ["/purchase-invoice/index"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
+                                [
+                                    "label" => "Receiving",
+                                    "url" => ["/purchase/index"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
 
+                                [
+                                    "label" => "Expenses",
+                                    "url" => ["/purchase-cost/index"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
+                            ],
+                        ],
+                        ["label" =>Yii::t('app','Returns'), "url" =>  ["/product-return/index"], "icon" => "fa fa-refresh",],
+                        [
+                            "label" => "Customers",
+                            "url" => ["/customer/index"],
+                            "icon" => "fa fa-users",
+                        ],
+
+                        [
+                            "label" => "Suppliers",
+                            "url" => ["/supplier/index"],
+                            "icon" => "fa fa-truck",
+                        ],
+                        [
+                            "label" => "Branches",
+                            "url" => ["/branch/index"],
+                            "icon" => "fa fa-share-alt",
+                        ],
                         [
                             'visible' => yii::$app->User->can('StockPerson')||yii::$app->User->can('admin'),
                             "label" =>Yii::t('app','Inventory'),
                             "url" => "#",
-                            "icon" => "fa fa-cart-plus",
+                            "icon" => "fa fa-building-o",
                             "items" => [
                                 [
                                     "label" => "Current Stock",
@@ -471,7 +511,7 @@ desired effect
             Powered by Adotech
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; Biashara Solution <?= date("Y") ?>
+        <strong>Copyright &copy; Reinca Portal <?= date("Y") ?>
     </footer>
 
     <!-- Control Sidebar -->

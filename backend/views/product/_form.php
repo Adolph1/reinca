@@ -32,19 +32,11 @@ use backend\models\Category;
             <div class="panel-heading"><?= Yii::t('app','Product Form');?></div>
             <div class="panel-body">
 
-
-
-    <?= $form->field($model, 'product_code')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'barcode')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'product_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'category')->dropDownList(Category::getAll(),['prompt'=>Yii::t('app','--Select--')]) ?>
-
-    <?= $form->field($model, 'image')->fileInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'status')->dropDownList(['-1'=>Yii::t('app','--Select--'),'0'=>'Active','1'=>'Disable']) ?>
 

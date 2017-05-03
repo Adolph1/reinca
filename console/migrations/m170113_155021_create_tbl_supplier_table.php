@@ -16,7 +16,7 @@ class m170113_155021_create_tbl_supplier_table extends Migration
             'id' => $this->primaryKey(),
             'supplier_name'=>$this->string(200)->notNull(),
             'email'=>$this->string(200),
-            'phone_number'=>$this->string(13)->notNull(),
+            'phone_number'=>$this->string(200)->notNull(),
             'location'=>$this->string(200)->notNull(),
 
         ]);

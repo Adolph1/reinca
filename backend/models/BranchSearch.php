@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\PurchaseMaster;
+use backend\models\Branch;
 
 /**
- * PurchaseMasterSearch represents the model behind the search form about `backend\models\PurchaseMaster`.
+ * BranchSearch represents the model behind the search form about `backend\models\Branch`.
  */
-class PurchaseMasterSearch extends PurchaseMaster
+class BranchSearch extends Branch
 {
     /**
      * @inheritdoc
@@ -19,8 +19,7 @@ class PurchaseMasterSearch extends PurchaseMaster
     {
         return [
             [['id'], 'integer'],
-            [['description', 'period', 'financial_year', 'maker_id', 'maker_time'], 'safe'],
-
+            [['branch_name', 'location'], 'safe'],
         ];
     }
 
@@ -42,7 +41,7 @@ class PurchaseMasterSearch extends PurchaseMaster
      */
     public function search($params)
     {
-        $query = PurchaseMaster::find();
+        $query = Branch::find();
 
         // add conditions that should always apply here
 
@@ -61,13 +60,10 @@ class PurchaseMasterSearch extends PurchaseMaster
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'maker_time' => $this->maker_time,
         ]);
 
-        $query->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'period', $this->period])
-            ->andFilterWhere(['like', 'financial_year', $this->financial_year])
-            ->andFilterWhere(['like', 'maker_id', $this->maker_id]);
+        $query->andFilterWhere(['like', 'branch_name', $this->branch_name])
+            ->andFilterWhere(['like', 'location', $this->location]);
 
         return $dataProvider;
     }

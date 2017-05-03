@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\PurchaseMaster;
+use backend\models\Cashbook;
 
 /**
- * PurchaseMasterSearch represents the model behind the search form about `backend\models\PurchaseMaster`.
+ * CashbookSearch represents the model behind the search form about `backend\models\Cashbook`.
  */
-class PurchaseMasterSearch extends PurchaseMaster
+class CashbookSearch extends Cashbook
 {
     /**
      * @inheritdoc
@@ -19,8 +19,8 @@ class PurchaseMasterSearch extends PurchaseMaster
     {
         return [
             [['id'], 'integer'],
-            [['description', 'period', 'financial_year', 'maker_id', 'maker_time'], 'safe'],
-
+            [['trn_dt', 'drcr_ind', 'description', 'maker_id', 'maker_time', 'auth_status', 'checker_id', 'checker_time'], 'safe'],
+            [['amount'], 'number'],
         ];
     }
 
@@ -42,7 +42,7 @@ class PurchaseMasterSearch extends PurchaseMaster
      */
     public function search($params)
     {
-        $query = PurchaseMaster::find();
+        $query = Cashbook::find();
 
         // add conditions that should always apply here
 
@@ -61,13 +61,17 @@ class PurchaseMasterSearch extends PurchaseMaster
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'trn_dt' => $this->trn_dt,
+            'amount' => $this->amount,
             'maker_time' => $this->maker_time,
+            'checker_time' => $this->checker_time,
         ]);
 
-        $query->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'period', $this->period])
-            ->andFilterWhere(['like', 'financial_year', $this->financial_year])
-            ->andFilterWhere(['like', 'maker_id', $this->maker_id]);
+        $query->andFilterWhere(['like', 'drcr_ind', $this->drcr_ind])
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'maker_id', $this->maker_id])
+            ->andFilterWhere(['like', 'auth_status', $this->auth_status])
+            ->andFilterWhere(['like', 'checker_id', $this->checker_id]);
 
         return $dataProvider;
     }

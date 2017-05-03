@@ -17,6 +17,7 @@ class m170113_155845_create_tbl_purchase_invoice_table extends Migration
             'invoice_number'=>$this->string(20)->null(),
             'purchase_date'=>$this->date(),
             'supplier_id'=>$this->integer()->notNull(),
+            'branch_id'=>$this->integer()->notNull(),
             'purchase_master_id'=>$this->integer()->notNull(),
             'total_purchase'=>$this->decimal(),
             'maker_id'=>$this->string(200)->notNull(),

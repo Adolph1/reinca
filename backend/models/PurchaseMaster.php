@@ -36,10 +36,9 @@ class PurchaseMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description', 'country', 'period', 'financial_year'], 'required'],
-            [['fcy_rate', 'lcy_rate'], 'number'],
+            [['description', 'period', 'financial_year'], 'required'],
             [['maker_time'], 'safe'],
-            [['description', 'country', 'financial_year', 'maker_id'], 'string', 'max' => 200],
+            [['description','financial_year', 'maker_id'], 'string', 'max' => 200],
             [['period'], 'string', 'max' => 3],
         ];
     }

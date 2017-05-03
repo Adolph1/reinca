@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title ='BS';
+$this->title ='Reinca Portal';
 use yii\bootstrap\Html;
 use backend\models\SalesItem;
 use backend\models\Purchase;

@@ -44,44 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
         //'id',
         'description',
-        [
-                'attribute'=>'country',
-                'value'=>function($model){
-                    if($model->country==PurchaseMaster::LOCAL){
-                        return "Local";
-                    }
-                    elseif ($model->country==PurchaseMaster::ABROAD){
-                        return "Abroad";
-                    }
 
-                }
-        ],
         'period',
         'financial_year',
-        [
-            'attribute'=>'fcy_rate',
-            'value'=>function($model){
-                if($model->country==PurchaseMaster::LOCAL){
-                    return "-";
-                }
-                elseif ($model->country==PurchaseMaster::ABROAD){
-                    return $model->fcy_rate;
-                }
 
-            }
-        ],
-        [
-            'attribute'=>'lcy_rate',
-            'value'=>function($model){
-                if($model->country==PurchaseMaster::LOCAL){
-                    return "-";
-                }
-                elseif ($model->country==PurchaseMaster::ABROAD){
-                    return $model->lcy_rate;
-                }
-
-            }
-        ],
         //'maker_id',
         //'maker_time',
 

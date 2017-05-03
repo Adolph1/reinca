@@ -4,8 +4,10 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use wbraganca\dynamicform\DynamicFormWidget;
 use backend\models\Supplier;
+use backend\models\Branch;
 use backend\models\PurchaseMaster;
 use backend\models\Product;
+use kartik\date\DatePicker;
 
 
 
@@ -22,27 +24,23 @@ use backend\models\Product;
 
             <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
             <div class="row">
-                <div class="col-md-2"></div>
 
                 <div class="col-md-2"><?= $form->field($model, 'invoice_number')->textInput(['maxlength' => true]) ?></div>
                 <div class="col-md-2"><?= $form->field($model, 'purchase_master_id')->dropDownList(PurchaseMaster::getAll(),['prompt'=>Yii::t('app','--Select--')]) ?></div>
                 <div class="col-md-2"><?= $form->field($model, 'supplier_id')->dropDownList(Supplier::getAll(),['prompt'=>Yii::t('app','--Select--')]) ?></div>
-                <div class="col-md-2"><?= $form->field($model, 'purchase_date')->textInput(['maxlength' => true]) ?></div>
-                <div class="col-md-2">
-                    <?php /* $form->field($newpurchase, 'purchase_date')->widget(
-                DatePicker::className(), [
-                // inline too, not bad
-                'inline' => false,
-                // modify template for custom rendering
-                // 'template' => '<div class="well well-sm" style="background-color: #fff;>{input}</div>',
-                'clientOptions' => [
-                    'autoclose' => true,
-                    'format' => 'dd-M-yyyy'
-                ]
-            ]);*/
-                    ?>
-
-                </div>
+                <div class="col-md-2"><?= $form->field($model, 'branch_id')->dropDownList(Branch::getAll(),['prompt'=>Yii::t('app','--Select--')]) ?></div>
+                <div class="col-md-4">
+                    <?= $form->field($model, 'purchase_date')->widget(DatePicker::ClassName(),
+                        [
+                            //'name' => 'purchase_date',
+                            // 'value' => date('d-M-Y', strtotime('+2 days')),
+                            //'options' => ['placeholder' => 'To date...'],
+                            'pluginOptions' => [
+                                'format' => 'yyyy-mm-dd',
+                                'todayHighlight' => true
+                            ]
+                        ]);?>
+            </div>
             </div>
 
             <div class="panel panel-default">
@@ -99,10 +97,10 @@ use backend\models\Product;
             <div class="form-group">
                 <?php
                 if($model->isNewRecord){
-                    echo Html::submitButton(Yii::t('app','Save'),['create'], ['class' => 'btn btn-success']);
+                    echo Html::submitButton(Yii::t('app','Save'),['class' => 'btn btn-primary'],['create']);
                 }
-                if(!$model->isNewRecord && $model->status=\backend\models\Purchase::PENDING){
-                    echo Html::submitButton(Yii::t('app','Update'),['update'], ['class' => 'btn btn-primary']);
+                if(!$model->isNewRecord && $model->status==\backend\models\Purchase::PENDING){
+                    echo Html::submitButton(Yii::t('app','Update'),['class' => 'btn btn-primary'],['update']);
                 }
 
                 ?>
