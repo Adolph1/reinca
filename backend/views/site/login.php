@@ -11,9 +11,13 @@ $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+
+    <p><h2>Welcome to Biashara Solution</h2></p>
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4><?= Html::encode($this->title) ?></h4></div>
+        <div class="panel-body">
 
     <div class="row">
         <div class="col-lg-5">
@@ -30,6 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
 
             <?php ActiveForm::end(); ?>
+        </div>
+    </div>
         </div>
     </div>
 </div>

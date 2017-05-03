@@ -315,7 +315,7 @@ desired effect
                             ],
                         ],
                         [
-                            'visible' => yii::$app->User->can('PurchasePerson')||yii::$app->User->can('admin'),
+                            'visible' => yii::$app->User->can('purchasePerson')||yii::$app->User->can('admin'),
                             "label" =>Yii::t('app','Purchases'),
                             "url" => "#",
                             "icon" => "fa fa-cart-plus",
