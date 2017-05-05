@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'maker_id',
             // 'maker_time',
 
+<<<<<<< HEAD
             [
                 'class'=>'yii\grid\ActionColumn',
                 'header'=>'Actions',
@@ -73,6 +74,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ]
             ],
+=======
+            ['class' => 'yii\grid\ActionColumn','header'=>'Actions'],
+>>>>>>> a80eafb421ddeb89bbf279bff9574ebdbb6e20f1
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>
