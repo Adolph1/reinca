@@ -38,8 +38,8 @@ class PurchaseInvoice extends \yii\db\ActiveRecord
     {
         return [
             [['purchase_date', 'maker_time', 'checker_time'], 'safe'],
-            [['supplier_id', 'purchase_master_id','branch_id'], 'required'],
-            [['supplier_id', 'purchase_master_id','branch_id'], 'integer'],
+            [['supplier_id', 'purchase_master_id','store_id'], 'required'],
+            [['supplier_id', 'purchase_master_id','store_id'], 'integer'],
             [['invoice_number'], 'string', 'max' => 20],
             [['total_purchase'], 'number'],
             [['maker_id', 'checker_id'], 'string', 'max' => 200],
@@ -58,7 +58,7 @@ class PurchaseInvoice extends \yii\db\ActiveRecord
             'invoice_number' => Yii::t('app', 'Invoice Number'),
             'purchase_date' => Yii::t('app', 'Purchase Date'),
             'supplier_id' => Yii::t('app', 'Supplier'),
-            'branch_id' => Yii::t('app', 'Branch'),
+            'store_id' => Yii::t('app', 'Store'),
             'purchase_master_id' => Yii::t('app', 'Description'),
             'total_purchase'=>'Total Purchase',
             'maker_id' => Yii::t('app', 'Maker ID'),

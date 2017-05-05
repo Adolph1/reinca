@@ -5,6 +5,7 @@ namespace backend\controllers;
 use backend\models\Inventory;
 use backend\models\PurchaseInvoice;
 use backend\models\PurchaseInvoiceSearch;
+use backend\models\StoreInventory;
 use backend\models\SystemSetup;
 use Yii;
 use backend\models\Purchase;
@@ -111,32 +112,26 @@ class PurchaseController extends Controller
             if (SystemSetup::getMakerChecker() == SystemSetup::ALLOW_MAKERCHECKER) {
             foreach ($pendings as $pending) {
 
-                    $productcount = Inventory::find()->where(['product_id' => $pending->product_id])->count();
+                    $productcount = StoreInventory::find()->where(['product_id' => $pending->product_id,'store_id'=>$this->getStoreID($pending->purchase_invoice_id)])->count();
                     if ($productcount == 1) {
-                        $product = Inventory::find()->where(['product_id' => $pending->product_id])->one();
+                        $product = StoreInventory::find()->where(['product_id' => $pending->product_id,'store_id'=>$this->getStoreID($pending->purchase_invoice_id)])->one();
                         $prevbalance=$product->qty;
                         $product->qty = $product->qty + $pending->qty;
                         $product->maker_id = $pending->maker_id;
                         $product->maker_time = $pending->maker_time;
-                        $product->checker_id = Yii::$app->user->identity->username;
-                        $product->checker_time = date('Y-m-d:H:i:s');
-                        $product->auth_status = 'A';
+                        $product->store_id=$this->getStoreID($pending->purchase_invoice_id);
                         $product->save();
                         Purchase::updateAll(['status' => Purchase::UPDATED,'previous_balance'=>$prevbalance,'balance'=>$product->qty,'checker_id'=>Yii::$app->user->identity->username,'checker_time'=>date('Y-m-d:H:i:s'),'auth_status'=>'A'], ['id' => $pending->id]);
 
                     } else {
-                        $product = new Inventory();
+                        $product = new StoreInventory();
                         $product->product_id = $pending->product_id;
                         $product->buying_price = $pending->price;
-                        $product->selling_price = $pending->selling_price;
                         $product->qty = $pending->qty;
-                        $product->min_level = 5;
                         $product->last_updated = date('Y-m-d:H:i:s');
                         $product->maker_id = $pending->maker_id;
                         $product->maker_time = $pending->maker_time;
-                        $product->checker_id = Yii::$app->user->identity->username;
-                        $product->checker_time = date('Y-m-d:H:i:s');
-                        $product->auth_status = 'A';
+                        $product->store_id=$this->getStoreID($pending->purchase_invoice_id);
                         $product->save();
                         Purchase::updateAll(['status' => Purchase::UPDATED,'checker_id'=>Yii::$app->user->identity->username,'checker_time'=>date('Y-m-d:H:i:s'),'auth_status'=>'A'], ['id' => $pending->id]);
 
@@ -181,6 +176,15 @@ class PurchaseController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    public function getStoreID($id)
+    {
+        $modelinvoice = PurchaseInvoice::find()->where(['id' => $id])->one();
+        if($modelinvoice!=null){
+         return $modelinvoice->store_id;
+        }else{
+            return '';
+        }
     }
 
 
