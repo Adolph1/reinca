@@ -17,6 +17,7 @@ class m170113_155844_create_tbl_product_table extends Migration
             'product_name'=>$this->string(200)->notNull(),
             'description'=>$this->text(),
             'category'=>$this->integer()->notNull(),
+            'type_id'=>$this->integer()->notNull(),
             'status'=>$this->integer()->notNull(),
             'maker_id'=>$this->string(200)->notNull(),
             'maker_time'=>$this->dateTime()->notNull(),
@@ -39,6 +40,23 @@ class m170113_155844_create_tbl_product_table extends Migration
             'id',
             'CASCADE'
         );
+
+        // creates index for column `category`
+        $this->createIndex(
+            'idx-tbl_product-type_id',
+            'tbl_product',
+            'type_id'
+        );
+
+        // add foreign key for table `tbl_category`
+        $this->addForeignKey(
+            'fk-tbl_product-type_id',
+            'tbl_product',
+            'type_id',
+            'tbl_product_type',
+            'id',
+            'CASCADE'
+        );
     }
 
     /**
@@ -55,6 +73,17 @@ class m170113_155844_create_tbl_product_table extends Migration
         // drops index for column `author_id`
         $this->dropIndex(
             'idx-tbl_product-category',
+            'tbl_product'
+        );
+        // drops foreign key for table `tbl_category`
+        $this->dropForeignKey(
+            'fk-tbl_product-type_id',
+            'tbl_product'
+        );
+
+        // drops index for column `author_id`
+        $this->dropIndex(
+            'idx-tbl_product-type_id',
             'tbl_product'
         );
         $this->dropTable('tbl_product');

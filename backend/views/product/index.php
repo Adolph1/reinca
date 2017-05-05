@@ -61,9 +61,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_name',
             'description:ntext',
             [
+                'attribute'=>'type_id',
+                'value'=>'type0.title'
+            ],
+            [
               'attribute'=>'category',
                 'value'=>'category0.title'
             ],
+
             // 'image',
 
             [

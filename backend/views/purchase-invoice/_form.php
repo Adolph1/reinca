@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use wbraganca\dynamicform\DynamicFormWidget;
 use backend\models\Supplier;
-use backend\models\Branch;
+use backend\models\Store;
 use backend\models\PurchaseMaster;
 use backend\models\Product;
 use kartik\date\DatePicker;
@@ -28,7 +28,7 @@ use kartik\date\DatePicker;
                 <div class="col-md-2"><?= $form->field($model, 'invoice_number')->textInput(['maxlength' => true]) ?></div>
                 <div class="col-md-2"><?= $form->field($model, 'purchase_master_id')->dropDownList(PurchaseMaster::getAll(),['prompt'=>Yii::t('app','--Select--')]) ?></div>
                 <div class="col-md-2"><?= $form->field($model, 'supplier_id')->dropDownList(Supplier::getAll(),['prompt'=>Yii::t('app','--Select--')]) ?></div>
-                <div class="col-md-2"><?= $form->field($model, 'branch_id')->dropDownList(Branch::getAll(),['prompt'=>Yii::t('app','--Select--')]) ?></div>
+                <div class="col-md-2"><?= $form->field($model, 'store_id')->dropDownList(Store::getAll(),['prompt'=>Yii::t('app','--Select--')]) ?></div>
                 <div class="col-md-4">
                     <?= $form->field($model, 'purchase_date')->widget(DatePicker::ClassName(),
                         [

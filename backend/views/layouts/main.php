@@ -294,9 +294,18 @@ desired effect
                                        // "class" => \yiister\adminlte\components\AdminLTE::BG_BLUE,
                                     //],
                                 ],
+                                [
+                                    "label" => Yii::t('app','Types'),
+                                    "url" => ["/product-type/index"],
+                                    "icon" => "fa fa-angle-double-right",
+                                    // "badge" => "123",
+                                    // "badgeOptions" => [
+                                    // "class" => \yiister\adminlte\components\AdminLTE::BG_BLUE,
+                                    //],
+                                ],
                             ],
                         ],
-                        [
+                        /*[
                             'visible' => yii::$app->User->can('salesPerson')||yii::$app->User->can('admin'),
                             "label" => Yii::t('app','Sales'),
                             "url" => "#",
@@ -314,6 +323,7 @@ desired effect
                                 ],
                             ],
                         ],
+                        */
                         [
                             'visible' => yii::$app->User->can('purchasePerson')||yii::$app->User->can('admin'),
                             "label" =>Yii::t('app','Purchases'),
@@ -344,6 +354,37 @@ desired effect
                             ],
                         ],
                         [
+                            'visible' => yii::$app->User->can('StockPerson')||yii::$app->User->can('admin'),
+                            "label" =>Yii::t('app','Inventory'),
+                            "url" => "#",
+                            "icon" => "fa fa-building-o",
+                            "items" => [
+                                /* [
+                                     "label" => "Current Stock",
+                                     "url" => ["/inventory/index"],
+                                     "icon" => "fa fa-angle-double-right",
+                                 ],
+                                */
+                                [
+                                    "label" => "Branches Stocks",
+                                    "url" => ["/store-inventory/index"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
+                                /*[
+                                    "label" => "Price Maintenance",
+                                    "url" => ["/price-maintanance/create"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
+                                [
+                                    "label" => "Stock Adjustment",
+                                    "url" => ["/stock-adjustment/create"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],*/
+
+                            ],
+                        ],
+                        /*
+                        [
                             'visible' => yii::$app->User->can('accountant')||yii::$app->User->can('admin'),
                             "label" =>Yii::t('app','Accounting'),
                             "url" => "#",
@@ -373,45 +414,28 @@ desired effect
                             ],
                         ],
                         ["label" =>Yii::t('app','Returns'), "url" =>  ["/product-return/index"], "icon" => "fa fa-refresh",],
-                        [
+                        /*[
                             "label" => "Customers",
                             "url" => ["/customer/index"],
                             "icon" => "fa fa-users",
                         ],
-
+                            */
                         [
                             "label" => "Suppliers",
                             "url" => ["/supplier/index"],
                             "icon" => "fa fa-truck",
                         ],
                         [
+                            "label" => "Stores",
+                            "url" => ["/store/index"],
+                            "icon" => "fa fa-home",
+                        ],
+                        [
                             "label" => "Branches",
                             "url" => ["/branch/index"],
                             "icon" => "fa fa-share-alt",
                         ],
-                        [
-                            'visible' => yii::$app->User->can('StockPerson')||yii::$app->User->can('admin'),
-                            "label" =>Yii::t('app','Inventory'),
-                            "url" => "#",
-                            "icon" => "fa fa-building-o",
-                            "items" => [
-                                [
-                                    "label" => "Current Stock",
-                                    "url" => ["/inventory/index"],
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
-                                [
-                                    "label" => "Price Maintenance",
-                                    "url" => ["/price-maintanance/create"],
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
-                                [
-                                    "label" => "Stock Adjustment",
-                                    "url" => ["/stock-adjustment/create"],
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
-                            ],
-                        ],
+
                         ["label" =>Yii::t('app','Reports'), "url" =>  ["/report/index"], "icon" => "fa fa-bar-chart",],
 
                         [

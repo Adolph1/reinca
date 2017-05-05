@@ -4,6 +4,7 @@ use yii\helpers\Html;
 //use yii\widgets\ActiveForm;
 use yii\bootstrap\ActiveForm;
 use backend\models\Category;
+use backend\models\ProductType;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Product */
@@ -35,6 +36,8 @@ use backend\models\Category;
     <?= $form->field($model, 'product_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'type_id')->dropDownList(ProductType::getAll(),['prompt'=>Yii::t('app','--Select--')]) ?>
 
     <?= $form->field($model, 'category')->dropDownList(Category::getAll(),['prompt'=>Yii::t('app','--Select--')]) ?>
 

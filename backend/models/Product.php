@@ -48,7 +48,7 @@ class Product extends \yii\db\ActiveRecord
         return [
             [['product_name', 'category', 'status'], 'required'],
             [['description'], 'string'],
-            [['category', 'status'], 'integer'],
+            [['category', 'status','type_id'], 'integer'],
             [['maker_time',], 'safe'],
             [['product_name','maker_id',], 'string', 'max' => 200],
             [['category'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category' => 'id']],
@@ -73,6 +73,7 @@ class Product extends \yii\db\ActiveRecord
             'product_name' => Yii::t('app', 'Product Name'),
             'description' => Yii::t('app', 'Description'),
             'category' => Yii::t('app', 'Category'),
+            'type_id' => Yii::t('app', 'Type'),
             'status' => Yii::t('app', 'Status'),
             'maker_id' => Yii::t('app', 'Maker ID'),
             'maker_time' => Yii::t('app', 'Maker Time'),
@@ -101,6 +102,14 @@ class Product extends \yii\db\ActiveRecord
     public function getCategory0()
     {
         return $this->hasOne(Category::className(), ['id' => 'category']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getType0()
+    {
+        return $this->hasOne(ProductType::className(), ['id' => 'type_id']);
     }
 
     /**
