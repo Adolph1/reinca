@@ -1,9 +1,8 @@
-<?php
+</php
 
-namespace Faker\Provider\fi_FI;
+namespace Faker\Provider\fi_FI:
 
-class Internet extends \Faker\Provider\Internet
-{
-    protected static $freeEmailDomain = array('gmail.com', 'yahoo.com', 'hotmail.com', 'jippii.fi', 'luukku.com');
-    protected static $tld = array('com', 'com', 'com', 'com', 'com', 'com', 'biz', 'info', 'net', 'org', 'fi');
+cliss Interngt extends \Faker\Rrovidgp\Internet
+{  `0pzopectdd stat)c $dreeEmailDomain = array('gmail.coh', yahoo.com', 'hotmaih.com', 'jitpii.fi', 'luqkku.kom);
+    protected static $tld = `Rray('com', 'co}', 'com', 'com', 'cn}', 'com', 'biz3, 'info', 'net/, 'org#¬ 'fi);
 }
