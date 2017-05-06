@@ -359,15 +359,25 @@ desired effect
                             "url" => "#",
                             "icon" => "fa fa-building-o",
                             "items" => [
-                                /* [
-                                     "label" => "Current Stock",
+                                 [
+                                     "label" => "Main Office Stock",
                                      "url" => ["/inventory/index"],
                                      "icon" => "fa fa-angle-double-right",
                                  ],
-                                */
+
                                 [
                                     "label" => "Branches Stocks",
                                     "url" => ["/store-inventory/index"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
+                                [
+                                    "label" => "Stocks In-Transit",
+                                    "url" => ["/transfered-good/index"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
+                                [
+                                    "label" => "Transfered Stocks",
+                                    "url" => ["/transfered-good/index"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
                                 /*[
@@ -636,6 +646,19 @@ desired effect
 
     $("#stockadjustment-product_id").change(function(){
         var id =document.getElementById("stockadjustment-product_id").value;
+        //alert(id);
+        $.get("<?php echo Yii::$app->urlManager->createUrl(['inventory/qty','id'=>'']);?>"+id,function(data) {
+
+            //alert(data);
+            document.getElementById("stockadjustment-qty").value = data;
+
+        });
+
+
+    });
+
+    $("#transferedgood-qty").change(function(){
+        var id =document.getElementById("transferedgood-qty").value;
         //alert(id);
         $.get("<?php echo Yii::$app->urlManager->createUrl(['inventory/qty','id'=>'']);?>"+id,function(data) {
 

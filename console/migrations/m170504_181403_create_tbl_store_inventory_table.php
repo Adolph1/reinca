@@ -73,7 +73,7 @@ class m170504_181403_create_tbl_store_inventory_table extends Migration
 
         // drops index for column `product_id`
         $this->dropIndex(
-            'idx-tbl_store_inventory-store_id',
+            'idx-tbl_store_inventory-product_id',
             'tbl_store_inventory'
         );
 

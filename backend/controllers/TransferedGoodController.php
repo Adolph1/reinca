@@ -2,18 +2,18 @@
 
 namespace backend\controllers;
 
-use backend\models\TransferedGood;
-use Yii;
 use backend\models\StoreInventory;
-use backend\models\StoreInventorySearch;
+use Yii;
+use backend\models\TransferedGood;
+use backend\models\TransferedGoodSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * StoreInventoryController implements the CRUD actions for StoreInventory model.
+ * TransferedGoodController implements the CRUD actions for TransferedGood model.
  */
-class StoreInventoryController extends Controller
+class TransferedGoodController extends Controller
 {
     /**
      * @inheritdoc
@@ -31,12 +31,12 @@ class StoreInventoryController extends Controller
     }
 
     /**
-     * Lists all StoreInventory models.
+     * Lists all TransferedGood models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new StoreInventorySearch();
+        $searchModel = new TransferedGoodSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,7 +46,7 @@ class StoreInventoryController extends Controller
     }
 
     /**
-     * Displays a single StoreInventory model.
+     * Displays a single TransferedGood model.
      * @param integer $id
      * @return mixed
      */
@@ -57,27 +57,21 @@ class StoreInventoryController extends Controller
         ]);
     }
 
-    public function actionTransfer($id)
-    {
-        $transfered=new TransferedGood();
-
-        return $this->render('transfer', [
-            'model' => $this->findModel($id),
-            'transfered'=>$transfered,
-        ]);
-    }
-
-
     /**
-     * Creates a new StoreInventory model.
+     * Creates a new TransferedGood model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new StoreInventory();
+        $model = new TransferedGood();
+        $model->maker_id = Yii::$app->user->identity->username;
+        $model->maker_time = date('Y-m-d:H:i:s');
+        $model->balance=$_POST['TransferedGood']['remaining'];
+        //$updateStock=$this->updateStock($_POST['TransferedGood']['stock_id'],$_POST['TransferedGood']['product_id'],$model->balance);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            StoreInventory::updateAll(['qty'=>$_POST['TransferedGood']['remaining']], ['store_id' => $_POST['TransferedGood']['store_id'],'product_id'=>$_POST['TransferedGood']['product_id']]);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -87,7 +81,7 @@ class StoreInventoryController extends Controller
     }
 
     /**
-     * Updates an existing StoreInventory model.
+     * Updates an existing TransferedGood model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -106,7 +100,7 @@ class StoreInventoryController extends Controller
     }
 
     /**
-     * Deletes an existing StoreInventory model.
+     * Deletes an existing TransferedGood model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -119,15 +113,15 @@ class StoreInventoryController extends Controller
     }
 
     /**
-     * Finds the StoreInventory model based on its primary key value.
+     * Finds the TransferedGood model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return StoreInventory the loaded model
+     * @return TransferedGood the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = StoreInventory::findOne($id)) !== null) {
+        if (($model = TransferedGood::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
