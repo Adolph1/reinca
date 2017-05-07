@@ -33,7 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'product_id',
                 'value'=>'product.product_name'
             ],
-            //'buying_price',
+            'buying_price',
+            'selling_price',
             'qty',
             'last_updated',
             // 'maker_id',

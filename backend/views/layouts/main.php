@@ -305,7 +305,7 @@ desired effect
                                 ],
                             ],
                         ],
-                        /*[
+                        [
                             'visible' => yii::$app->User->can('salesPerson')||yii::$app->User->can('admin'),
                             "label" => Yii::t('app','Sales'),
                             "url" => "#",
@@ -321,9 +321,13 @@ desired effect
                                     "url" =>  ["/sales/index"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
+                                [
+                                    "label" => "Consolidated Report",
+                                    "url" =>  ["/sales/report"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
                             ],
                         ],
-                        */
                         [
                             'visible' => yii::$app->User->can('purchasePerson')||yii::$app->User->can('admin'),
                             "label" =>Yii::t('app','Purchases'),
@@ -372,7 +376,7 @@ desired effect
                                 ],
                                 [
                                     "label" => "Stocks In-Transit",
-                                    "url" => ["/transfered-good/index"],
+                                    "url" => ["/transfered-good/pending"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
                                 [
@@ -380,7 +384,12 @@ desired effect
                                     "url" => ["/transfered-good/index"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
-                                /*[
+                                [
+                                    "label" => "Canceled Stocks",
+                                    "url" => ["/transfered-good/canceled"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
+                                [
                                     "label" => "Price Maintenance",
                                     "url" => ["/price-maintanance/create"],
                                     "icon" => "fa fa-angle-double-right",
@@ -389,11 +398,10 @@ desired effect
                                     "label" => "Stock Adjustment",
                                     "url" => ["/stock-adjustment/create"],
                                     "icon" => "fa fa-angle-double-right",
-                                ],*/
+                                ],
 
                             ],
                         ],
-                        /*
                         [
                             'visible' => yii::$app->User->can('accountant')||yii::$app->User->can('admin'),
                             "label" =>Yii::t('app','Accounting'),

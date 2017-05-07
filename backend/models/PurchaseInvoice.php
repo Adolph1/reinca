@@ -84,6 +84,14 @@ class PurchaseInvoice extends \yii\db\ActiveRecord
         return $this->hasOne(Supplier::className(), ['id' => 'supplier_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStore()
+    {
+        return $this->hasOne(Store::className(), ['id' => 'store_id']);
+    }
+
     public function getPurchases()
     {
         return $this->hasMany(Purchase::className(), ['purchase_invoice_id' => 'id']);

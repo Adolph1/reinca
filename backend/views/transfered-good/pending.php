@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php
     $searchModel = new \backend\models\TransferedGoodSearch();
-    $dataProvider = $searchModel->received(Yii::$app->request->queryParams);
+    $dataProvider = $searchModel->pending(Yii::$app->request->queryParams);
     ?>
     <?= DataTables::widget([
         'dataProvider' => $dataProvider,

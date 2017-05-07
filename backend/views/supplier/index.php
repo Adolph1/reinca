@@ -26,11 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'supplier_name',
-            'email:email',
+            //'email:email',
             'phone_number',
-            'location',
+            [
+                'attribute'=>'location',
+                'value'=>'branch.branch_name',
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn','header'=>'Actions'],
         ],
     ]); ?>
 </div>

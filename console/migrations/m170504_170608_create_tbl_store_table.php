@@ -21,7 +21,7 @@ class m170504_170608_create_tbl_store_table extends Migration
         ]);
 
 
-        // creates index for column `module`
+        // creates index for column `branch_id`
         $this->createIndex(
             'idx-tbl_store-branch_id',
             'tbl_store',
@@ -29,7 +29,7 @@ class m170504_170608_create_tbl_store_table extends Migration
         );
 
 
-        // add foreign key for table `tbl_purchase_master`
+        // add foreign key for table `tbl_branch`
         $this->addForeignKey(
             'fk-tbl_store-branch_id',
             'tbl_store',

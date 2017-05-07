@@ -48,6 +48,12 @@ class SalesController extends Controller
         ]);
     }
 
+    public function actionReport()
+    {
+
+        return $this->render('today_report');
+    }
+
     /**
      * Displays a single Sales model.
      * @param integer $id
