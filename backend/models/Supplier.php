@@ -33,7 +33,8 @@ class Supplier extends \yii\db\ActiveRecord
     {
         return [
             [['supplier_name', 'phone_number', 'location'], 'required'],
-            [['supplier_name', 'email', 'location'], 'string', 'max' => 200],
+            [['supplier_name', 'email'], 'string', 'max' => 200],
+            [['location'], 'integer'],
             [['phone_number'], 'string', 'max' => 200],
         ];
     }
@@ -64,6 +65,14 @@ class Supplier extends \yii\db\ActiveRecord
      */
     public function getTblPurchases()
     {
-        return $this->hasMany(TblPurchase::className(), ['supplier_id' => 'id']);
+        return $this->hasMany(Purchase::className(), ['supplier_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBranch()
+    {
+        return $this->hasOne(Branch::className(), ['id' => 'location']);
     }
 }

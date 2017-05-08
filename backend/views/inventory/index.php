@@ -8,7 +8,7 @@ use backend\models\InventorySearch;
 /* @var $searchModel backend\models\InventorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Products in Stock');
+$this->title = Yii::t('app', 'Products in main store');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inventory-index">
@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'last_updated',
             //'maker_id',
            // 'maker_time',
-            'auth_status',
+            //auth_status',
             //'checker_id',
             //'checker_time',
 

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use backend\models\Branch;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Supplier */
@@ -19,8 +20,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'phone_number')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'location')->dropDownList(Branch::getAll(),['prompt'=>Yii::t('app','--Select--')]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

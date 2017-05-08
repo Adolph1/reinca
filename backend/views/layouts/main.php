@@ -305,7 +305,7 @@ desired effect
                                 ],
                             ],
                         ],
-                        /*[
+                        [
                             'visible' => yii::$app->User->can('salesPerson')||yii::$app->User->can('admin'),
                             "label" => Yii::t('app','Sales'),
                             "url" => "#",
@@ -321,9 +321,13 @@ desired effect
                                     "url" =>  ["/sales/index"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
+                                [
+                                    "label" => "Consolidated Report",
+                                    "url" =>  ["/sales/report"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
                             ],
                         ],
-                        */
                         [
                             'visible' => yii::$app->User->can('purchasePerson')||yii::$app->User->can('admin'),
                             "label" =>Yii::t('app','Purchases'),
@@ -359,18 +363,33 @@ desired effect
                             "url" => "#",
                             "icon" => "fa fa-building-o",
                             "items" => [
-                                /* [
-                                     "label" => "Current Stock",
+                                 [
+                                     "label" => "Main Office Stock",
                                      "url" => ["/inventory/index"],
                                      "icon" => "fa fa-angle-double-right",
                                  ],
-                                */
+
                                 [
                                     "label" => "Branches Stocks",
                                     "url" => ["/store-inventory/index"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
-                                /*[
+                                [
+                                    "label" => "Stocks In-Transit",
+                                    "url" => ["/transfered-good/pending"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
+                                [
+                                    "label" => "Transfered Stocks",
+                                    "url" => ["/transfered-good/index"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
+                                [
+                                    "label" => "Canceled Stocks",
+                                    "url" => ["/transfered-good/canceled"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
+                                [
                                     "label" => "Price Maintenance",
                                     "url" => ["/price-maintanance/create"],
                                     "icon" => "fa fa-angle-double-right",
@@ -379,11 +398,10 @@ desired effect
                                     "label" => "Stock Adjustment",
                                     "url" => ["/stock-adjustment/create"],
                                     "icon" => "fa fa-angle-double-right",
-                                ],*/
+                                ],
 
                             ],
                         ],
-                        /*
                         [
                             'visible' => yii::$app->User->can('accountant')||yii::$app->User->can('admin'),
                             "label" =>Yii::t('app','Accounting'),
@@ -636,6 +654,19 @@ desired effect
 
     $("#stockadjustment-product_id").change(function(){
         var id =document.getElementById("stockadjustment-product_id").value;
+        //alert(id);
+        $.get("<?php echo Yii::$app->urlManager->createUrl(['inventory/qty','id'=>'']);?>"+id,function(data) {
+
+            //alert(data);
+            document.getElementById("stockadjustment-qty").value = data;
+
+        });
+
+
+    });
+
+    $("#transferedgood-qty").change(function(){
+        var id =document.getElementById("transferedgood-qty").value;
         //alert(id);
         $.get("<?php echo Yii::$app->urlManager->createUrl(['inventory/qty','id'=>'']);?>"+id,function(data) {
 

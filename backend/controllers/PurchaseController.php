@@ -117,6 +117,7 @@ class PurchaseController extends Controller
                         $product = StoreInventory::find()->where(['product_id' => $pending->product_id,'store_id'=>$this->getStoreID($pending->purchase_invoice_id)])->one();
                         $prevbalance=$product->qty;
                         $product->qty = $product->qty + $pending->qty;
+                        $product->selling_price = $pending->selling_price;
                         $product->maker_id = $pending->maker_id;
                         $product->maker_time = $pending->maker_time;
                         $product->store_id=$this->getStoreID($pending->purchase_invoice_id);
@@ -127,6 +128,7 @@ class PurchaseController extends Controller
                         $product = new StoreInventory();
                         $product->product_id = $pending->product_id;
                         $product->buying_price = $pending->price;
+                        $product->selling_price = $pending->selling_price;
                         $product->qty = $pending->qty;
                         $product->last_updated = date('Y-m-d:H:i:s');
                         $product->maker_id = $pending->maker_id;

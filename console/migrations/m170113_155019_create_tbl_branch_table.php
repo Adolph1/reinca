@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `tbl_branch`.
  */
-class m170503_113153_create_tbl_branch_table extends Migration
+class m170113_155019_create_tbl_branch_table extends Migration
 {
     /**
      * @inheritdoc

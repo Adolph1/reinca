@@ -16,6 +16,7 @@ class m170504_181403_create_tbl_store_inventory_table extends Migration
             'id' => $this->primaryKey(),
             'product_id'=>$this->integer()->notNull(),
             'buying_price'=>$this->decimal()->notNull(),
+            'selling_price'=>$this->decimal()->notNull(),
             'qty'=>$this->decimal()->notNull(),
             'store_id'=>$this->integer()->notNull(),
             'last_updated'=>$this->dateTime(),
@@ -73,7 +74,7 @@ class m170504_181403_create_tbl_store_inventory_table extends Migration
 
         // drops index for column `product_id`
         $this->dropIndex(
-            'idx-tbl_store_inventory-store_id',
+            'idx-tbl_store_inventory-product_id',
             'tbl_store_inventory'
         );
 

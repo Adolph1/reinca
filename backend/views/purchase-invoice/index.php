@@ -66,9 +66,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value'=>'supplier.supplier_name'
             ],
             [
+                'attribute'=>'store_id',
+                'value'=>'store.store_name'
+            ],
+           /* [
                 'attribute'=>'purchase_master_id',
                 'value'=>'purchaseMaster.description'
-            ],
+            ],*/
             [
                 'attribute'=>'total_purchase',
                 'value'=>function ($searchModel)

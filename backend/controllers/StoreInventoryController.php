@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\TransferedGood;
 use Yii;
 use backend\models\StoreInventory;
 use backend\models\StoreInventorySearch;
@@ -55,6 +56,17 @@ class StoreInventoryController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+
+    public function actionTransfer($id)
+    {
+        $transfered=new TransferedGood();
+
+        return $this->render('transfer', [
+            'model' => $this->findModel($id),
+            'transfered'=>$transfered,
+        ]);
+    }
+
 
     /**
      * Creates a new StoreInventory model.

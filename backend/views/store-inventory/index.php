@@ -33,7 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'product_id',
                 'value'=>'product.product_name'
             ],
-            //'buying_price',
+            'buying_price',
+            'selling_price',
             'qty',
             'last_updated',
             // 'maker_id',
@@ -57,15 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
 
                     'block' => function ($url, $model) {
-                        $url=['reverse','id' => $model->id];
+                        $url=['transfer','id' => $model->id];
                         return Html::a('<span class="fa fa-truck"></span>', $url, [
                             'title' => 'Transfer',
-                            'data-toggle'=>'tooltip','data-original-title'=>'Save',
+                            'data-toggle'=>'tooltip','data-original-title'=>'Transfer',
                             'class'=>'btn btn-primary',
-                            'data' => [
-                                'confirm' => Yii::t('app', 'Are you sure you want to reverse this product?'),
-                                'method' => 'post',
-                            ],
 
                         ]);
 
@@ -73,6 +70,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ]
             ],
+<<<<<<< HEAD
+=======
+            ['class' => 'yii\grid\ActionColumn','header'=>'Actions'],
+
+>>>>>>> fd7f0d1a09b3bd1403e4a092d104765d41dae92d
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

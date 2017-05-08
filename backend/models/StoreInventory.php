@@ -37,7 +37,7 @@ class StoreInventory extends \yii\db\ActiveRecord
         return [
             [['product_id', 'buying_price', 'qty', 'store_id', 'maker_id', 'maker_time'], 'required'],
             [['product_id', 'store_id'], 'integer'],
-            [['buying_price', 'qty'], 'number'],
+            [['buying_price','selling_price', 'qty'], 'number'],
             [['last_updated', 'maker_time'], 'safe'],
             [['maker_id'], 'string', 'max' => 200],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
@@ -54,6 +54,7 @@ class StoreInventory extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'product_id' => Yii::t('app', 'Product Name'),
             'buying_price' => Yii::t('app', 'Buying Price'),
+            'selling_price' => Yii::t('app', 'Selling Price'),
             'qty' => Yii::t('app', 'Qty'),
             'store_id' => Yii::t('app', 'Store'),
             'last_updated' => Yii::t('app', 'Last Updated'),

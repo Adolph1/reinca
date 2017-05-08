@@ -16,6 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'buying_price')->textInput(['maxlength' => true]) ?>
 
+
     <?= $form->field($model, 'qty')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'store_id')->textInput() ?>
