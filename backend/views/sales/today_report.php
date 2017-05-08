@@ -1,17 +1,11 @@
 <?php
 
 use yii\helpers\Html;
-use backend\models\PaymentMethod;
-use backend\models\Cart;
-use backend\models\Inventory;
-use yii\bootstrap\ActiveForm;
-use yii\jui\AutoComplete;
-use yii\web\JsExpression;
-use backend\models\Product;
-use kartik\spinner\Spinner;
-use yii\helpers\Url;
-use kartik\grid\GridView;
-use kartik\editable\Editable;
+use backend\models\Sales;
+use backend\models\Cashbook;
+use backend\models\SalesItem;
+
+
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Sales */
@@ -29,18 +23,48 @@ use kartik\editable\Editable;
             <table class="table table-bordered table-condensed table-hover small kv-table">
                 <tbody>
                 <tr class="active">
-                    <th class="text-left">Total solid products</th>
+                    <th class="text-left">Total sold products</th>
                     <th class="text-left">Total cash sales</th>
-                    <th class="text-center">Total credit sales</th>
-                    <th class="text-center">Total expenses</th>
+                    <th class="text-left">Total credit sales</th>
+                    <th class="text-left">Total expenses</th>
                 </tr>
-                <?php
-                /*foreach ($products as $product) {
-                    if($product->min_level>$product->qty){
-                        echo '<tr><td class="text-left">'.Product::getProductName($product->product_id).'</td><td>'.\backend\models\Category::getName(Product::getCategoryID($product->product_id)).'</td><td  class="text-center">'.$product->qty.'</td><td  class="text-center">'.$product->min_level.'</td></tr>';
-                    }
-                }*/
-                ?>
+                <tr>
+                    <td><?= Sales::getTotalQtySold();?></td>
+                    <td><?= Sales::getTodayCashSales();?></td>
+                    <td><?= Sales::getTodayCreditSales();?></td>
+                    <td><?= Cashbook::getTodayExpenses()?></td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            Products sold by cash
+
+            <table class="table table-bordered table-condensed table-hover small kv-table">
+                <tbody>
+                <tr class="active">
+                    <th class="text-left">Product Name</th>
+                    <th class="text-left">Quantity</th>
+                    <th class="text-left">Price</th>
+                    <th class="text-left">Total</th>
+                </tr>
+
+                    <?php
+
+                    $cash_sales = SalesItem::find()->select(['product_id','sales_id','selling_price','sum(qty) AS qty','total'])->where(['trn_dt'=>date('Y-m-d')])->groupBy('product_id')->all();
+                   foreach ($cash_sales as $cash_sale) {
+                       ?>
+                       <tr>
+                           <td><?= \backend\models\Product::getProductName($cash_sale->product_id); ?></td>
+                           <td><?= $cash_sale->qty; ?></td>
+                           <td><?= $cash_sale->selling_price; ?></td>
+                           <td><?= $cash_sale->qty * $cash_sale->selling_price; ?></td>
+                       </tr>
+                       <?php
+
+                    }?>
+
+
                 </tbody>
             </table>
 
@@ -63,16 +87,5 @@ use kartik\editable\Editable;
 
         </div>
     </div>
-<script>
-    function jsDispalyTotal(data)
-    {
-        var discount=document.getElementById('sales-discount').value;
-        var paidamount=document.getElementById('total-amount').innerHTML;
-       // alert(paidamount);
-
-        document.getElementById("sales-paid_amount").value = paidamount-discount;
-
-    }
-</script>
 </div>
 

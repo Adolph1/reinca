@@ -64,4 +64,21 @@ class Cashbook extends \yii\db\ActiveRecord
             'checker_time' => Yii::t('app', 'Checker Time'),
         ];
     }
+
+    /**
+     * gets total today expenses
+     */
+    public static function getTodayExpenses()
+    {
+        $expense = Cashbook::find()->where(['trn_dt'=>date('Y-m-d'),'drcr_ind'=>Cashbook::PAYMENT])->sum('amount');
+
+        if($expense!=null){
+            return $expense;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
 }

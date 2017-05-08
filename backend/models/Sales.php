@@ -104,5 +104,74 @@ class Sales extends \yii\db\ActiveRecord
         return Sales::findOne($id);
     }
 
+    /**
+     * gets total today sold products
+     */
+    public static function getTotalQtySold()
+    {
+        $sales = Sales::find()->where(['trn_dt'=>date('Y-m-d')])->sum('total_qty');
+
+        if($sales!=null){
+            return $sales;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
+    /**
+     * gets total today cash sales
+     */
+    public static function getTodayCashSales()
+    {
+        $cash_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::CASH])->sum('total_amount');
+
+        if($cash_sales!=null){
+            return $cash_sales;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
+
+    /**
+     * gets total today credit sales
+     */
+    public static function getTodayCreditSales()
+    {
+        $credit_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::ONCREDIT])->sum('total_amount');
+
+        if($credit_sales!=null){
+            return $credit_sales;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
+
+
+    /**
+     * gets total today cash sales
+     */
+    public static function getCashSales()
+    {
+        $cash_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::CREDIT])->all();
+
+        if($cash_sales!=null){
+            return $cash_sales;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
+
+
 
 }

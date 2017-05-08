@@ -70,11 +70,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ]
             ],
-<<<<<<< HEAD
-=======
+
+
             ['class' => 'yii\grid\ActionColumn','header'=>'Actions'],
 
->>>>>>> fd7f0d1a09b3bd1403e4a092d104765d41dae92d
+
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>
