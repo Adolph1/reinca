@@ -68,12 +68,28 @@ class Cashbook extends \yii\db\ActiveRecord
     /**
      * gets total today expenses
      */
-    public static function getTodayExpenses()
+    public static function getTodayTotalExpenses()
     {
         $expense = Cashbook::find()->where(['trn_dt'=>date('Y-m-d'),'drcr_ind'=>Cashbook::PAYMENT])->sum('amount');
 
         if($expense!=null){
             return $expense;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
+    /**
+     * gets today expenses
+     */
+    public static function getTodayExpenses()
+    {
+        $expenses = Cashbook::find()->where(['trn_dt'=>date('Y-m-d'),'drcr_ind'=>Cashbook::PAYMENT])->all();
+
+        if($expenses!=null){
+            return $expenses;
         }
         else{
             return 0;

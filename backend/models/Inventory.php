@@ -144,4 +144,20 @@ class Inventory extends \yii\db\ActiveRecord
         $totalproducts=Inventory::find()->sum('qty');
         return $fmt->asDecimal($totalproducts,0);
     }
+
+    /**
+     * gets all Inventories
+     */
+    public static function getAll()
+    {
+        $cash_sales = Inventory::find()->all();
+
+        if($cash_sales!=null){
+            return $cash_sales;
+        }
+        else{
+            return 0;
+        }
+
+    }
 }

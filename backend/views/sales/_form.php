@@ -108,14 +108,14 @@ use kartik\editable\Editable;
                                 [
                                     'class'=>'kartik\grid\EditableColumn',
                                     'attribute'=>'qty',
-                                    'refreshGrid' => true,
-
+                                    //'refreshGrid' => true,
+                                    'format'=>['decimal', 0],
                                     'editableOptions'=> [
-                                        'header'=>'Name',
+                                        'header'=>'Quantity',
                                         'id'=>'qty',
                                         'size'=>'md',
                                         'formOptions' => ['action' => ['cart/editcart']],
-                                        'asPopover' => false,
+                                        'asPopover' => true,
                                         //'inputType'=>Editable::INPUT_SPIN,
                                         'options'=>[
                                             'pluginOptions'=>['min'=>0, 'max'=>5000],

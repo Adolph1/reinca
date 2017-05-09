@@ -59,13 +59,5 @@ use backend\models\Inventory;
         </div>
     </div>
 
-    <p style="padding: 10px" class="text-primary">Get quick reports!</p>
-    <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-6" style="margin-left: 100px">
-            <div class="row">
-                <div class="col-md-12" style="background: white;color: #5555;border-left: solid 2px skyblue;padding: 10px"><?= Html::a(Yii::t('app', '<i class="fa fa-bar-chart"></i> Today\'s sales report'), ['sales/index']) ?>  </div>
-            </div>
-        </div>
 
-    </div>
 </div>

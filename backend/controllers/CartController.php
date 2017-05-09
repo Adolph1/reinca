@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use kartik\grid\EditableColumnAction;
+use yii\helpers\json;
 
 /**
  * CartController implements the CRUD actions for Cart model.
@@ -154,7 +155,7 @@ class CartController extends Controller
                             $updateTotal=$this->findModel($model->id);
                             $updateTotal->total=$updateTotal->qty*$updateTotal->price;
                             $updateTotal->save();
-                            $this->redirect(['sales/create']);
+                           // $this->redirect(['sales/create']);
                             return $fmt->asDecimal($value, 2); // return formatted value if desired
 
                         }

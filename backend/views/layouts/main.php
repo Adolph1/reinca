@@ -415,22 +415,30 @@ desired effect
                                 ],
                                 [
                                     "label" => "Payments",
-                                    "url" => ["/purchase-invoice/index"],
+                                    "url" => ["#"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
                                 [
                                     "label" => "Receiving",
-                                    "url" => ["/purchase/index"],
+                                    "url" => ["#"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
 
                                 [
                                     "label" => "Expenses",
-                                    "url" => ["/purchase-cost/index"],
+                                    "url" => ["#"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
+
+                                [
+                                    "label" => "Accounts",
+                                    "url" => ["account/index"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
+
                             ],
                         ],
+                        ["label" =>Yii::t('app','Employees'), "url" =>  ["/employee/index"], "icon" => "fa fa-users",],
                         ["label" =>Yii::t('app','Returns'), "url" =>  ["/product-return/index"], "icon" => "fa fa-refresh",],
                         /*[
                             "label" => "Customers",
@@ -573,28 +581,6 @@ desired effect
 <?php $this->endPage() ?>
 
 <script>
-    $("#purchasemaster-country").change(function(){
-        var id =document.getElementById("purchasemaster-country").value;
-        if(id==1){
-            $( "#rates" ).hide( "slow", function() {
-                //alert( "Animation complete." );
-            });
-        }
-        else if(id==2){
-            $( "#rates" ).show( "slow", function() {
-            });
-        }
-        else if(id==0){
-            $( "#rates" ).show( "slow", function() {
-            });
-        }
-
-
-    });
-
-</script>
-
-<script>
     $("#reportsearch-report").change(function(){
         var id =document.getElementById("reportsearch-report").value;
         if(id==1){
@@ -665,18 +651,6 @@ desired effect
 
     });
 
-    $("#transferedgood-qty").change(function(){
-        var id =document.getElementById("transferedgood-qty").value;
-        //alert(id);
-        $.get("<?php echo Yii::$app->urlManager->createUrl(['inventory/qty','id'=>'']);?>"+id,function(data) {
-
-            //alert(data);
-            document.getElementById("stockadjustment-qty").value = data;
-
-        });
-
-
-    });
 
 </script>
 

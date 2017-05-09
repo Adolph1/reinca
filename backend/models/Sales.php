@@ -160,7 +160,24 @@ class Sales extends \yii\db\ActiveRecord
      */
     public static function getCashSales()
     {
-        $cash_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::CREDIT])->all();
+        $cash_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::CASH])->all();
+
+        if($cash_sales!=null){
+            return $cash_sales;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
+
+    /**
+     * gets total today credit sales
+     */
+    public static function getCreditSales()
+    {
+        $cash_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::ONCREDIT])->all();
 
         if($cash_sales!=null){
             return $cash_sales;

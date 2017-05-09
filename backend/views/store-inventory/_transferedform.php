@@ -32,7 +32,7 @@ use kartik\date\DatePicker;
     <?= $form->field($transfered, 'product_name')->textInput(['maxlength' => true,'readonly'=>'readonly','value'=>$model->product->product_name]) ?>
 
     <?= $form->field($transfered, 'balance')->textInput(['maxlength' => true,'readonly'=>'readonly','value'=>$model->qty]) ?>
-    <?= $form->field($transfered, 'qty')->textInput(['maxlength' => true,'value'=>0,'onblur'=>'jsDispalyTotal(this)','onkeyup'=>'jsDispalyTotal(this)']) ?>
+    <?= $form->field($transfered, 'qty')->textInput(['maxlength' => true,'value'=>0,'onblur'=>'jsDispalyBalance(this)','onkeyup'=>'jsDispalyBalance(this)']) ?>
     <?= $form->field($transfered, 'remaining')->textInput(['maxlength' => true,'readonly'=>'readonly','value'=>$model->qty]) ?>
 
     <?= $form->field($transfered, 'horse_number')->textInput(['maxlength' => true]) ?>
@@ -53,7 +53,7 @@ use kartik\date\DatePicker;
 
 
 <script>
-    function jsDispalyTotal(data)
+    function jsDispalyBalance(data)
     {
         var tranferqty=document.getElementById('transferedgood-qty').value;
         var balance=document.getElementById('transferedgood-balance').value;
