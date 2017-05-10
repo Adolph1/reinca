@@ -18,7 +18,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app', 'Post Cash'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+
+    <?php
+    $searchModel = new \backend\models\CashbookSearch();
+    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    ?>
+<?php Pjax::begin(); ?>    <?= \fedemotta\datatables\DataTables::widget([
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         'columns' => [
@@ -32,10 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>function ($model){
 
                     if($model->drcr_ind==\backend\models\Cashbook::PAYMENT){
-                        return "Payment";
+                        return "CashOut";
                     }
                     elseif ($model->drcr_ind==\backend\models\Cashbook::RECEIPT){
-                        return "Receiving";
+                        return "CashIn";
                     }
                 }
             ],

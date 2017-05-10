@@ -51,23 +51,26 @@ use backend\models\SalesItem;
 
                     <?php
                   $sales=Sales::getCashSales();
-                  $totalcashqty=0;
-                  $totalcashamount=0;
-                  foreach ($sales as $sale){
-                    $cash_sales = SalesItem::find()->select(['product_id','sales_id','selling_price','sum(qty) AS qty','total'])->where(['trn_dt'=>date('Y-m-d'),'sales_id'=>$sale->id])->groupBy('product_id')->all();
-                   foreach ($cash_sales as $cash_sale) {
-                       ?>
-                       <tr>
-                           <td><?= \backend\models\Product::getProductName($cash_sale->product_id); ?></td>
-                           <td><?= $cash_sale->selling_price; ?></td>
-                           <td><?= $cash_sale->qty; ?></td>
-                           <td><?= $cash_sale->qty * $cash_sale->selling_price; ?></td>
-                       </tr>
-                       <?php
-                       $totalcashqty=$totalcashqty+$cash_sale->qty;
-                       $totalcashamount=$totalcashamount+($cash_sale->qty * $cash_sale->selling_price);
-                   }
-                    }?>
+                    $totalcashqty = 0;
+                    $totalcashamount = 0;
+                  if($sales!=null) {
+
+                      foreach ($sales as $sale) {
+                          $cash_sales = SalesItem::find()->select(['product_id', 'sales_id', 'selling_price', 'sum(qty) AS qty', 'total'])->where(['trn_dt' => date('Y-m-d'), 'sales_id' => $sale->id])->groupBy('product_id')->all();
+                          foreach ($cash_sales as $cash_sale) {
+                              ?>
+                              <tr>
+                                  <td><?= \backend\models\Product::getProductName($cash_sale->product_id); ?></td>
+                                  <td><?= $cash_sale->selling_price; ?></td>
+                                  <td><?= $cash_sale->qty; ?></td>
+                                  <td><?= $cash_sale->qty * $cash_sale->selling_price; ?></td>
+                              </tr>
+                              <?php
+                              $totalcashqty = $totalcashqty + $cash_sale->qty;
+                              $totalcashamount = $totalcashamount + ($cash_sale->qty * $cash_sale->selling_price);
+                          }
+                      }
+                  }?>
 
                 <tr><th class="text-right"></th><th class="text-right">Total</th><th class="text-left"><?=$totalcashqty;?></th><th class="text-left"><?=$totalcashamount;?></th></tr>
                 </tbody>
@@ -88,23 +91,26 @@ use backend\models\SalesItem;
 
                 <?php
                 $credit_sales=Sales::getCreditSales();
-                $totalcrqty=0;
-                $totalcramount=0;
-                foreach ($credit_sales as $credit_sale){
+                $totalcrqty = 0;
+                $totalcramount = 0;
+                if($credit_sales!=null) {
 
-                    $cr_sales = SalesItem::find()->select(['product_id','sales_id','selling_price','sum(qty) AS qty','total'])->where(['trn_dt'=>date('Y-m-d'),'sales_id'=>$credit_sale->id])->groupBy('product_id')->all();
-                    foreach ($cr_sales as $cr_sale) {
+                    foreach ($credit_sales as $credit_sale) {
 
-                        ?>
-                        <tr>
-                            <td><?= \backend\models\Product::getProductName($cr_sale->product_id); ?></td>
-                            <td><?= $cr_sale->selling_price; ?></td>
-                            <td><?= $cr_sale->qty; ?></td>
-                            <td><?= $cr_sale->qty * $cr_sale->selling_price; ?></td>
-                        </tr>
-                        <?php
-                        $totalcrqty=$totalcrqty+$cr_sale->qty;
-                        $totalcramount=$totalcramount+($cr_sale->qty * $cr_sale->selling_price);
+                        $cr_sales = SalesItem::find()->select(['product_id', 'sales_id', 'selling_price', 'sum(qty) AS qty', 'total'])->where(['trn_dt' => date('Y-m-d'), 'sales_id' => $credit_sale->id])->groupBy('product_id')->all();
+                        foreach ($cr_sales as $cr_sale) {
+
+                            ?>
+                            <tr>
+                                <td><?= \backend\models\Product::getProductName($cr_sale->product_id); ?></td>
+                                <td><?= $cr_sale->selling_price; ?></td>
+                                <td><?= $cr_sale->qty; ?></td>
+                                <td><?= $cr_sale->qty * $cr_sale->selling_price; ?></td>
+                            </tr>
+                            <?php
+                            $totalcrqty = $totalcrqty + $cr_sale->qty;
+                            $totalcramount = $totalcramount + ($cr_sale->qty * $cr_sale->selling_price);
+                        }
                     }
                 }?>
                 <tr><th class="text-right"></th><th class="text-right">Total</th><th class="text-left"><?=$totalcrqty;?></th><th class="text-left"><?=$totalcramount;?></th></tr>
@@ -125,17 +131,20 @@ use backend\models\SalesItem;
 
                 <?php
                 $inventories=\backend\models\Inventory::getAll();
-                $totalivqty=0;
+                $totalivqty = 0;
+                if($inventories!=null) {
 
-                foreach ($inventories as $inventory){
-                ?>
+
+                    foreach ($inventories as $inventory) {
+                        ?>
                         <tr>
                             <td><?= \backend\models\Product::getProductName($inventory->product_id); ?></td>
                             <td><?= $inventory->qty; ?></td>
                         </tr>
                         <?php
-                    $totalivqty=$totalivqty+$inventory->qty;
+                        $totalivqty = $totalivqty + $inventory->qty;
 
+                    }
                 }?>
                 <tr><th class="text-right">Total</th><th class="text-left"><?=$totalivqty;?></th></tr>
 
@@ -161,7 +170,8 @@ use backend\models\SalesItem;
 
                             <?php
                             $expenses=Cashbook::getTodayExpenses();
-                            foreach ($expenses as $expense){
+                            if($expenses!=null) {
+                                foreach ($expenses as $expense) {
                                     ?>
                                     <tr>
                                         <td><?= $expense->amount; ?></td>
@@ -171,6 +181,7 @@ use backend\models\SalesItem;
                                     <?php
 
 
+                                }
                             }?>
 
 
@@ -196,7 +207,7 @@ use backend\models\SalesItem;
                                 </tr>
 
                                 <?php
-                                $expenses=Cashbook::getTodayExpenses();
+                                /*$expenses=Cashbook::getTodayExpenses();
                                 foreach ($expenses as $expense){
                                     ?>
                                     <tr>
@@ -207,7 +218,7 @@ use backend\models\SalesItem;
                                     <?php
 
 
-                                }?>
+                                }*/?>
 
 
                                 </tbody>
@@ -232,7 +243,7 @@ use backend\models\SalesItem;
                                 </tr>
 
                                 <?php
-                                $expenses=Cashbook::getTodayExpenses();
+                                /*$expenses=Cashbook::getTodayExpenses();
                                 foreach ($expenses as $expense){
                                     ?>
                                     <tr>
@@ -243,7 +254,7 @@ use backend\models\SalesItem;
                                     <?php
 
 
-                                }?>
+                                }*/?>
 
 
                                 </tbody>
@@ -268,7 +279,7 @@ use backend\models\SalesItem;
                                 </tr>
 
                                 <?php
-                                $expenses=Cashbook::getTodayExpenses();
+                               /* $expenses=Cashbook::getTodayExpenses();
                                 foreach ($expenses as $expense){
                                     ?>
                                     <tr>
@@ -279,7 +290,7 @@ use backend\models\SalesItem;
                                     <?php
 
 
-                                }?>
+                                }*/?>
 
 
                                 </tbody>
@@ -304,7 +315,8 @@ use backend\models\SalesItem;
                                 </tr>
 
                                 <?php
-                                $expenses=Cashbook::getTodayExpenses();
+                                /*$expenses=Cashbook::getTodayExpenses();
+
                                 foreach ($expenses as $expense){
                                     ?>
                                     <tr>
@@ -315,7 +327,7 @@ use backend\models\SalesItem;
                                     <?php
 
 
-                                }?>
+                                }*/?>
 
 
                                 </tbody>

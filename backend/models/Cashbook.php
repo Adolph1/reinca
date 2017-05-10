@@ -55,7 +55,7 @@ class Cashbook extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'trn_dt' => Yii::t('app', 'Trn Dt'),
             'amount' => Yii::t('app', 'Amount'),
-            'drcr_ind' => Yii::t('app', 'Transaction Type'),
+            'drcr_ind' => Yii::t('app', 'Cash Movement'),
             'description' => Yii::t('app', 'Description'),
             'maker_id' => Yii::t('app', 'Maker ID'),
             'maker_time' => Yii::t('app', 'Maker Time'),

@@ -143,7 +143,7 @@ class CartController extends Controller
 
 
                     } elseif ($attribute === 'qty') {   // selective validation by attribute
-                        $inventory=Inventory::find()->where(['id'=>$model->product_id])->one();
+                        $inventory=Inventory::find()->where(['product_id'=>$model->product_id])->one();
                         if($inventory->qty<$model->qty)
                         {
                             $updateQty=$this->findModel($model->id);
