@@ -3,7 +3,7 @@
 namespace backend\models;
 
 use Yii;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "tbl_employee".
  *
@@ -26,6 +26,17 @@ class Employee extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'tbl_employee';
+    }
+
+
+
+    //gets all employees
+
+    public static function getAll()
+    {
+        return ArrayHelper::map(Employee::find()->all(),'id',function($model, $defaultValue) {
+            return $model['first_name'] ." ". $model['last_name'];
+        });
     }
 
     /**

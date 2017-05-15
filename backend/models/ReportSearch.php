@@ -118,5 +118,19 @@ class ReportSearch extends Report
             $query->andFilterWhere(['between', 'trn_dt', $from, $to]);
             return $dataProvider;
         }
+
+        elseif($id==5) {
+
+            $query = Sales::find();
+
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+            ]);
+            $query->select(['trn_dt,sum(total_amount) AS total_amount,sum(paid_amount) AS paid_amount,sum(due_amount) AS due_amount','customer_name']);
+            $query->andWhere(['!=','status','D']);
+            $query->andFilterWhere(['between', 'trn_dt', $from, $to]);
+            $query->groupBy(['trn_dt']);
+            return $dataProvider;
+        }
     }
 }

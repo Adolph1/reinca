@@ -24,8 +24,9 @@ class Cashbook extends \yii\db\ActiveRecord
      * @inheritdoc
      */
 
-    const PAYMENT='C';
-    const RECEIPT='D';
+    const PAYMENT='P';
+    const RECEIPT='R';
+    const EXPENSE='E';
 
     public static function tableName()
     {
@@ -55,7 +56,7 @@ class Cashbook extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'trn_dt' => Yii::t('app', 'Trn Dt'),
             'amount' => Yii::t('app', 'Amount'),
-            'drcr_ind' => Yii::t('app', 'Cash Movement'),
+            'drcr_ind' => Yii::t('app', ''),
             'description' => Yii::t('app', 'Description'),
             'maker_id' => Yii::t('app', 'Maker ID'),
             'maker_time' => Yii::t('app', 'Maker Time'),
@@ -66,14 +67,14 @@ class Cashbook extends \yii\db\ActiveRecord
     }
 
     /**
-     * gets total today expenses
+     * gets total today Expenses
      */
     public static function getTodayTotalExpenses()
     {
-        $expense = Cashbook::find()->where(['trn_dt'=>date('Y-m-d'),'drcr_ind'=>Cashbook::PAYMENT])->sum('amount');
+        $expenses = Cashbook::find()->where(['trn_dt'=>date('Y-m-d'),'drcr_ind'=>Cashbook::EXPENSE])->sum('amount');
 
-        if($expense!=null){
-            return $expense;
+        if($expenses!=null){
+            return $expenses;
         }
         else{
             return 0;
@@ -86,7 +87,7 @@ class Cashbook extends \yii\db\ActiveRecord
      */
     public static function getTodayExpenses()
     {
-        $expenses = Cashbook::find()->where(['trn_dt'=>date('Y-m-d'),'drcr_ind'=>Cashbook::PAYMENT])->all();
+        $expenses = Cashbook::find()->where(['trn_dt'=>date('Y-m-d'),'drcr_ind'=>Cashbook::EXPENSE])->all();
 
         if($expenses!=null){
             return $expenses;
@@ -96,5 +97,41 @@ class Cashbook extends \yii\db\ActiveRecord
         }
 
     }
+
+
+
+    /**
+     * gets today payments
+     */
+    public static function getTodayPayments()
+    {
+        $payments = Cashbook::find()->where(['trn_dt'=>date('Y-m-d'),'drcr_ind'=>Cashbook::PAYMENT])->all();
+
+        if($payments!=null){
+            return $payments;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
+
+    /**
+     * gets today total payments
+     */
+    public static function getTodayTotalPayments()
+    {
+        $payments = Cashbook::find()->where(['trn_dt'=>date('Y-m-d'),'drcr_ind'=>Cashbook::PAYMENT])->sum('amount');
+
+        if($payments!=null){
+            return $payments;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
 
 }

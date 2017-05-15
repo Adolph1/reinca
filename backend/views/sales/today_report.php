@@ -20,24 +20,6 @@ use backend\models\SalesItem;
     <div class="row">
         <div class="col-md-8">
 
-            <table class="table table-bordered table-condensed table-hover small kv-table">
-                <tbody>
-                <tr class="active">
-                    <th class="text-left">Total sold products</th>
-                    <th class="text-left">Total cash sales</th>
-                    <th class="text-left">Total credit sales</th>
-                    <th class="text-left">Total expenses</th>
-                </tr>
-                <tr>
-                    <td><?= Sales::getTotalQtySold();?></td>
-                    <td><?= Sales::getTodayCashSales();?></td>
-                    <td><?= Sales::getTodayCreditSales();?></td>
-                    <td><?= Cashbook::getTodayTotalExpenses()?></td>
-                </tr>
-
-                </tbody>
-            </table>
-
             <p><b>Products sold by cash</b></p>
 
             <table class="table table-bordered table-condensed table-hover small kv-table">
@@ -119,6 +101,51 @@ use backend\models\SalesItem;
             </table>
 
 
+            <p><b>Advance sales</b></p>
+
+            <table class="table table-bordered table-condensed table-hover small kv-table">
+                <tbody>
+                <tr class="active">
+                    <th class="text-left">Product Name</th>
+                    <th class="text-left">Price</th>
+                    <th class="text-left">Quantity</th>
+                    <th class="text-left">Total</th>
+                </tr>
+
+                <?php
+                $advance_sales=Sales::getAdvanceSales();
+
+                $totaladvqty = 0;
+                $totaladvamount = 0;
+                if($advance_sales!=null) {
+
+                    foreach ($advance_sales as $advance_sale) {
+
+                        $ad_sales = SalesItem::find()->select(['product_id', 'sales_id', 'selling_price', 'sum(qty) AS qty', 'total'])->where(['trn_dt' => date('Y-m-d'), 'sales_id' => $advance_sale->id])->groupBy('product_id')->all();
+                        foreach ($ad_sales as $ad_sale) {
+
+                            ?>
+                            <tr>
+                                <td><?= \backend\models\Product::getProductName($ad_sale->product_id); ?></td>
+                                <td><?= $ad_sale->selling_price; ?></td>
+                                <td><?= $ad_sale->qty; ?></td>
+                                <td><?= $ad_sale->qty * $ad_sale->selling_price; ?></td>
+                            </tr>
+                            <?php
+                            $totaladvqty = $totaladvqty + $ad_sale->qty;
+                            $totaladvamount = $totaladvamount + ($ad_sale->qty * $ad_sale->selling_price);
+                        }
+                    }
+                }?>
+                <tr><th class="text-right"></th><th class="text-right">Sub Total</th><th class="text-left"><?=$totaladvqty;?></th><th class="text-left"><?=$totaladvamount;?></th></tr>
+                <tr><th class="text-right"></th><th class="text-right"></th><th class="text-right">Total Advance payments</th><th class="text-left"><?=Sales::getTotalAdvanceSales();?></th></tr>
+                <tr><th class="text-right"></th><th class="text-right"></th><th class="text-right">Net Total</th><th class="text-left"><?= $totaladvamount-Sales::getTotalAdvanceSales();?></th></tr>
+
+                </tbody>
+            </table>
+
+
+
             <p><b>Current Stocks</b></p>
 
             <table class="table table-bordered table-condensed table-hover small kv-table">
@@ -151,6 +178,24 @@ use backend\models\SalesItem;
                 </tbody>
             </table>
 
+            <table class="table table-bordered table-condensed table-hover small kv-table">
+                <tbody>
+                <tr class="active">
+                    <th class="text-left">Total sold products</th>
+                    <th class="text-left">Total cash sales</th>
+                    <th class="text-left">Total credit sales</th>
+                    <th class="text-left">Total expenses</th>
+                </tr>
+                <tr>
+                    <td><?= Sales::getTotalQtySold();?></td>
+                    <td><?= Sales::getTodayCashSales()+Sales::getTotalAdvanceSales();?></td>
+                    <td><?= Sales::getTodayCreditSales()+Sales::getTotalDueSales();?></td>
+                    <td><?= Cashbook::getTodayTotalExpenses()?></td>
+                </tr>
+
+                </tbody>
+            </table>
+
         </div>
         <div class="col-md-4">
 
@@ -158,7 +203,7 @@ use backend\models\SalesItem;
                     <div class="row">
                         <div class="col-md-12">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Expenses</div>
+                            <div class="panel-heading">Payments</div>
                             <div class="panel-body">
 
                             <table class="table table-bordered table-condensed table-hover small kv-table">
@@ -169,13 +214,13 @@ use backend\models\SalesItem;
                             </tr>
 
                             <?php
-                            $expenses=Cashbook::getTodayExpenses();
-                            if($expenses!=null) {
-                                foreach ($expenses as $expense) {
+                            $payments=Cashbook::getTodayPayments();
+                            if($payments!=null) {
+                                foreach ($payments as $payment) {
                                     ?>
                                     <tr>
-                                        <td><?= $expense->amount; ?></td>
-                                        <td><?= $expense->description; ?></td>
+                                        <td><?= $payment->amount; ?></td>
+                                        <td><?= $payment->description; ?></td>
 
                                     </tr>
                                     <?php
@@ -196,7 +241,7 @@ use backend\models\SalesItem;
             <div class="row">
                 <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Payments</div>
+                    <div class="panel-heading">Expenses</div>
                     <div class="panel-body">
 
                             <table class="table table-bordered table-condensed table-hover small kv-table">
@@ -207,18 +252,19 @@ use backend\models\SalesItem;
                                 </tr>
 
                                 <?php
-                                /*$expenses=Cashbook::getTodayExpenses();
-                                foreach ($expenses as $expense){
+                                $expenses=Cashbook::getTodayExpenses();
+                                if($expenses!=null) {
+                                foreach ($expenses as $expense) {
                                     ?>
                                     <tr>
-                                        <td><?php // $expense->amount; ?></td>
-                                        <td><?php // $expense->description; ?></td>
+                                        <td><?= $expense->amount; ?></td>
+                                        <td><?= $expense->description; ?></td>
 
                                     </tr>
                                     <?php
 
-
-                                }*/?>
+                                }
+                                }?>
 
 
                                 </tbody>
@@ -229,77 +275,7 @@ use backend\models\SalesItem;
 
             </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Receipts</div>
-                        <div class="panel-body">
 
-                            <table class="table table-bordered table-condensed table-hover small kv-table">
-                                <tbody>
-                                <tr class="active">
-                                    <th class="text-left">Amount</th>
-                                    <th class="text-left">Description</th>
-                                </tr>
-
-                                <?php
-                                /*$expenses=Cashbook::getTodayExpenses();
-                                foreach ($expenses as $expense){
-                                    ?>
-                                    <tr>
-                                        <td><?php // $expense->amount; ?></td>
-                                        <td><?php // $expense->description; ?></td>
-
-                                    </tr>
-                                    <?php
-
-
-                                }*/?>
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Creditors</div>
-                        <div class="panel-body">
-
-                            <table class="table table-bordered table-condensed table-hover small kv-table">
-                                <tbody>
-                                <tr class="active">
-                                    <th class="text-left">Amount</th>
-                                    <th class="text-left">Creditor Name</th>
-                                </tr>
-
-                                <?php
-                               /* $expenses=Cashbook::getTodayExpenses();
-                                foreach ($expenses as $expense){
-                                    ?>
-                                    <tr>
-                                        <td><?php // $expense->amount; ?></td>
-                                        <td><?php // $expense->description; ?></td>
-
-                                    </tr>
-                                    <?php
-
-
-                                }*/?>
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
 
             <div class="row">
                 <div class="col-md-12">
@@ -315,19 +291,19 @@ use backend\models\SalesItem;
                                 </tr>
 
                                 <?php
-                                /*$expenses=Cashbook::getTodayExpenses();
-
-                                foreach ($expenses as $expense){
+                                $debtors=\backend\models\Debtor::getTodayDebtors();
+                                if($debtors!=null) {
+                                foreach ($debtors as $debtor){
                                     ?>
                                     <tr>
-                                        <td><?php // $expense->amount; ?></td>
-                                        <td><?php // $expense->description; ?></td>
+                                        <td><?= $debtor->amount; ?></td>
+                                        <td><?= $debtor->name; ?></td>
 
                                     </tr>
                                     <?php
+                                    }
 
-
-                                }*/?>
+                                }?>
 
 
                                 </tbody>
@@ -337,6 +313,7 @@ use backend\models\SalesItem;
                 </div>
 
             </div>
+            <div><h1>Today Net Sales: <?= Sales::getNetSales();?></h1></div>
         </div>
 
     </div>

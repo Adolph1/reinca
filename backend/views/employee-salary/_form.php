@@ -5,13 +5,13 @@ use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Cashbook */
+/* @var $model backend\models\EmployeeSalary */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="cashbook-form">
+<div class="employee-salary-form">
     <div class="panel panel-success">
-        <div class="panel-heading">Cashbook Form</div>
+        <div class="panel-heading">Salary Form</div>
         <div class="panel-body">
     <?php $form = ActiveForm::begin(); ?>
 
@@ -25,12 +25,13 @@ use kartik\date\DatePicker;
                         'todayHighlight' => true
                     ]
                 ]);?>
+
+    <?= $form->field($model, 'emp_id')->dropDownList(\backend\models\Employee::getAll(),['prompt'=>Yii::t('app','--Select--')]) ?>
+
     <?= $form->field($model, 'amount')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'drcr_ind')->dropDownList(['P'=>'Payment','R'=>'Receipt','E'=>'Expense'],['prompt'=>'--Select--']) ?>
+    <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
 
-
-    <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

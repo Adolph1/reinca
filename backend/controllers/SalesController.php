@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\Cart;
 use backend\models\CartSearch;
+use backend\models\Debtor;
 use backend\models\Inventory;
 use backend\models\SalesItem;
 use Yii;
@@ -95,9 +96,11 @@ class SalesController extends Controller
                     if ($model->total_amount == ($_POST['Sales']['paid_amount']+$_POST['Sales']['discount'])) {
                         $model->status = Sales::PAID;
                         $model->due_amount = 0;
+                        $flag=0;
                     } elseif ($model->total_amount > ($_POST['Sales']['paid_amount']+$_POST['Sales']['discount'])) {
                         $model->status = Sales::CREDIT;
                         $model->due_amount = $model->total_amount - ($_POST['Sales']['paid_amount']+$_POST['Sales']['discount']);
+                        $flag=1;
                     } elseif ($model->total_amount < $_POST['Sales']['paid_amount']) {
 
                         Yii::$app->session->setFlash('danger', 'Payment can not be greater than total amount.');
@@ -112,9 +115,11 @@ class SalesController extends Controller
                         $model->status = Sales::CREDIT;
                         $model->paid_amount=0;
                         $model->due_amount = $model->total_amount;
+                        $flag=1;
                     } elseif ($model->total_amount > ($_POST['Sales']['paid_amount']+$_POST['Sales']['discount'])) {
                         $model->status = Sales::CREDIT;
                         $model->due_amount = $model->total_amount - ($_POST['Sales']['paid_amount']+$_POST['Sales']['discount']);
+                        $flag=1;
                     } elseif ($model->total_amount < $_POST['Sales']['paid_amount']) {
 
                         Yii::$app->session->setFlash('danger', 'Payment can not be greater than total amount.');
@@ -149,6 +154,18 @@ class SalesController extends Controller
                             } else {
 
                             }
+                        }
+                        if($flag==1){
+
+                            $debtor=new Debtor();
+                            $debtor->date=date('Y-m-d');
+                            $debtor->sales_id=$model->id;
+                            $debtor->amount=$model->due_amount;
+                            $debtor->name=$model->customer_name;
+                            $debtor->maker_id = $model->maker_id;
+                            $debtor->maker_time = $model->maker_time;
+                            $debtor->save();
+
                         }
 
                         Yii::$app->session->setFlash('success', 'Successfully saved.');
@@ -207,6 +224,7 @@ class SalesController extends Controller
                     $inventory = $inventory + $salesItem->qty;
                     Inventory::updateAll(['qty' => $inventory], ['product_id' => $salesItem->product_id]);
                     SalesItem::updateAll(['delete_stat' => Sales::DELETED], ['sales_id' => $salesItem->sales_id]);
+                    Debtor::updateAll(['delete_stat' => Sales::DELETED], ['sales_id' => $salesItem->sales_id]);
                 }
             }
             $model->save();

@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\AccountSearch */
+/* @var $searchModel backend\models\CreditorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Accounts');
+$this->title = Yii::t('app', 'Creditors');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="account-index">
+<div class="creditor-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?php // Html::a(Yii::t('app', 'Create Account'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Add Creditor'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -25,12 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'account_name',
-            'opening_balance',
-            'account_balance',
-            //'date_created',
-            //'head_account',
-
+            'date',
+            'name',
+            'amount',
+            'description',
+            //'delete_stat',
             // 'maker_id',
             // 'maker_time',
 

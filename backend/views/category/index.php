@@ -88,12 +88,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     },
                     'block' => function ($url, $model) {
-                        $url=['block','id' => $model->id];
-                        return Html::a('<span class="fa fa-minus-square"></span>', $url, [
-                            'title' => 'Block',
+                        $url=['delete','id' => $model->id];
+                        return Html::a('<span class="fa fa-times"></span>', $url, [
+                            'title' => 'Delete',
                             'data-toggle'=>'tooltip','data-original-title'=>'Save',
                             'class'=>'btn btn-danger',
-
+                            'data' => [
+                                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                'method' => 'post',
+                            ],
                         ]);
 
 

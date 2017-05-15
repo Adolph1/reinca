@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Cashbook;
-use backend\models\CashbookSearch;
+use backend\models\Creditor;
+use backend\models\CreditorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CashbookController implements the CRUD actions for Cashbook model.
+ * CreditorController implements the CRUD actions for Creditor model.
  */
-class CashbookController extends Controller
+class CreditorController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class CashbookController extends Controller
     }
 
     /**
-     * Lists all Cashbook models.
+     * Lists all Creditor models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CashbookSearch();
+        $searchModel = new CreditorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class CashbookController extends Controller
     }
 
     /**
-     * Displays a single Cashbook model.
+     * Displays a single Creditor model.
      * @param integer $id
      * @return mixed
      */
@@ -57,15 +57,13 @@ class CashbookController extends Controller
     }
 
     /**
-     * Creates a new Cashbook model.
+     * Creates a new Creditor model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Cashbook();
-        $model->maker_id=Yii::$app->user->identity->username;
-        $model->maker_time=date('Y-m-d:H:i:s');
+        $model = new Creditor();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -77,7 +75,7 @@ class CashbookController extends Controller
     }
 
     /**
-     * Updates an existing Cashbook model.
+     * Updates an existing Creditor model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -85,8 +83,6 @@ class CashbookController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->maker_id=Yii::$app->user->identity->username;
-        $model->maker_time=date('Y-m-d:H:i:s');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -98,7 +94,7 @@ class CashbookController extends Controller
     }
 
     /**
-     * Deletes an existing Cashbook model.
+     * Deletes an existing Creditor model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,35 +106,16 @@ class CashbookController extends Controller
         return $this->redirect(['index']);
     }
 
-    //search payments
-    public function actionPayment()
-    {
-        return $this->render('payment');
-    }
-
-    //search expenses
-    public function actionExpense()
-    {
-        return $this->render('expense');
-    }
-
-    //search receipts
-    public function actionReceipt()
-    {
-        return $this->render('receipt');
-    }
-
-
     /**
-     * Finds the Cashbook model based on its primary key value.
+     * Finds the Creditor model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Cashbook the loaded model
+     * @return Creditor the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Cashbook::findOne($id)) !== null) {
+        if (($model = Creditor::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -415,18 +415,28 @@ desired effect
                                 ],
                                 [
                                     "label" => "Payments",
-                                    "url" => ["#"],
+                                    "url" => ["/cashbook/payment"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
                                 [
                                     "label" => "Receiving",
-                                    "url" => ["#"],
+                                    "url" => ["/cashbook/receipt"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
 
                                 [
                                     "label" => "Expenses",
-                                    "url" => ["#"],
+                                    "url" => ["/cashbook/expense"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
+                                [
+                                    "label" => "Debtors",
+                                    "url" => ["debtor/index"],
+                                    "icon" => "fa fa-angle-double-right",
+                                ],
+                                [
+                                    "label" => "Creditors",
+                                    "url" => ["creditor/index"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
 
@@ -436,9 +446,26 @@ desired effect
                                     "icon" => "fa fa-angle-double-right",
                                 ],
 
+
                             ],
                         ],
-                        ["label" =>Yii::t('app','Employees'), "url" =>  ["/employee/index"], "icon" => "fa fa-users",],
+                        [
+                                "label" =>Yii::t('app','Employees'),
+                                "url" =>  ["#"],
+                                "icon" => "fa fa-users",
+                                 "items" => [
+                                [
+                                "label" => "Employee List",
+                                "url" => ["employee/index"],
+                                "icon" => "fa fa-angle-double-right",
+                                ],
+                                     [
+                                         "label" => "Salary",
+                                         "url" => ["employee-salary/index"],
+                                         "icon" => "fa fa-angle-double-right",
+                                     ],
+                                ],
+                        ],
                         ["label" =>Yii::t('app','Returns'), "url" =>  ["/product-return/index"], "icon" => "fa fa-refresh",],
                         /*[
                             "label" => "Customers",

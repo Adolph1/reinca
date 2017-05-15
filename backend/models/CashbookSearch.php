@@ -75,4 +75,71 @@ class CashbookSearch extends Cashbook
 
         return $dataProvider;
     }
+
+
+
+    public function payment($params)
+    {
+        $query = Cashbook::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'drcr_ind' => Cashbook::PAYMENT,
+
+        ]);
+
+        return $dataProvider;
+    }
+
+
+    public function receipt($params)
+    {
+        $query = Cashbook::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'drcr_ind' => Cashbook::RECEIPT,
+
+        ]);
+
+        return $dataProvider;
+    }
+
+
+    public function expense($params)
+    {
+        $query = Cashbook::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'drcr_ind' => Cashbook::EXPENSE,
+
+        ]);
+
+        return $dataProvider;
+    }
 }

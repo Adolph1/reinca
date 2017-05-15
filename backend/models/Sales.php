@@ -50,7 +50,7 @@ class Sales extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['payment_method'], 'required'],
+            [['payment_method','paid_amount','customer_name'], 'required'],
             [['trn_dt', 'maker_time'], 'safe'],
             [['total_qty', 'total_amount', 'paid_amount','due_amount','discount'], 'number'],
             [['payment_method'], 'integer'],
@@ -125,7 +125,8 @@ class Sales extends \yii\db\ActiveRecord
      */
     public static function getTodayCashSales()
     {
-        $cash_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::CASH])->sum('total_amount');
+        $cash_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::CASH])
+            ->andWhere(['status'=>'P',])->sum('total_amount');
 
         if($cash_sales!=null){
             return $cash_sales;
@@ -142,7 +143,8 @@ class Sales extends \yii\db\ActiveRecord
      */
     public static function getTodayCreditSales()
     {
-        $credit_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::ONCREDIT])->sum('total_amount');
+        $credit_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::ONCREDIT])
+            ->andWhere(['status'=>'C',])->sum('due_amount');
 
         if($credit_sales!=null){
             return $credit_sales;
@@ -160,7 +162,61 @@ class Sales extends \yii\db\ActiveRecord
      */
     public static function getCashSales()
     {
-        $cash_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::CASH])->all();
+        $cash_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::CASH])
+            ->andWhere(['status'=>'P',])->all();
+
+        if($cash_sales!=null){
+            return $cash_sales;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
+
+
+    /**
+     * gets total today cash sales
+     */
+    public static function getAdvanceSales()
+    {
+        $cash_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::CASH])
+            ->andWhere(['status'=>'C',])->all();
+
+        if($cash_sales!=null){
+            return $cash_sales;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
+    /**
+     * gets total today cash sales
+     */
+    public static function getTotalAdvanceSales()
+    {
+        $cash_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::CASH])
+            ->andWhere(['status'=>'C',])->sum('paid_amount');
+
+        if($cash_sales!=null){
+            return $cash_sales;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
+    /**
+     * gets total today cash sales
+     */
+    public static function getTotalDueSales()
+    {
+        $cash_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::CASH])
+            ->andWhere(['status'=>'C',])->sum('due_amount');
 
         if($cash_sales!=null){
             return $cash_sales;
@@ -177,7 +233,9 @@ class Sales extends \yii\db\ActiveRecord
      */
     public static function getCreditSales()
     {
-        $cash_sales = Sales::find()->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::ONCREDIT])->all();
+        $cash_sales = Sales::find()
+            ->where(['trn_dt'=>date('Y-m-d'),'payment_method'=>Sales::ONCREDIT])
+            ->andWhere(['status'=>'C',])->all();
 
         if($cash_sales!=null){
             return $cash_sales;
@@ -186,6 +244,17 @@ class Sales extends \yii\db\ActiveRecord
             return 0;
         }
 
+    }
+
+    public static function getNetSales()
+    {
+        $netsales=(Sales::getTodayCashSales()+Sales::getTodayCreditSales()+Sales::getTotalAdvanceSales()+Sales::getTotalDueSales())-(Cashbook::getTodayTotalExpenses()+Cashbook::getTodayTotalPayments());
+        if($netsales!=null){
+            return $netsales;
+        }
+        else{
+            return 0;
+        }
     }
 
 
