@@ -132,5 +132,19 @@ class ReportSearch extends Report
             $query->groupBy(['trn_dt']);
             return $dataProvider;
         }
+
+        elseif($id==6) {
+
+            $query = Purchase::find();
+
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+            ]);
+            $query->select(['prchs_dt,price,product_id,sum(qty) AS qty,sum(total) AS total,(select supplier_id from tbl_purchase_invoice where id=purchase_invoice_id) as purchase_invoice_id']);
+            $query->andWhere(['status'=>1]);
+            $query->andFilterWhere(['between', 'prchs_dt', $from, $to]);
+            $query->groupBy(['prchs_dt','product_id',]);
+            return $dataProvider;
+        }
     }
 }

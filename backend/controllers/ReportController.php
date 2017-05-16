@@ -87,6 +87,25 @@ class ReportController extends Controller
                 'to'=>$to,
             ]);
         }
+        elseif ($reportid == 6) {
+            $dataProvider = $searchModel->search($reportid,$from, $to);
+            return $this->render('purchase', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'model' => $model,
+                'from'=>$from,
+                'to'=>$to,
+            ]);
+        }
+        else{
+            $searchModel = new ReportSearch();
+            $dataProvider = $searchModel->search('', '', '');
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'model' => $model,
+            ]);
+        }
 
     } else{
             $searchModel = new ReportSearch();

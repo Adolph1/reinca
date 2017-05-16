@@ -68,6 +68,19 @@ class Supplier extends \yii\db\ActiveRecord
         return $this->hasMany(Purchase::className(), ['supplier_id' => 'id']);
     }
 
+    /*
+     * Gets supplier name
+     */
+
+    public static function getSupplierName($id)
+    {
+        if (($model = Supplier::findOne($id)) !== null) {
+            return $model->supplier_name;
+        } else {
+            return "";
+        }
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

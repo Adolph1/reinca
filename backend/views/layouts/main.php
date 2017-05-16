@@ -75,7 +75,7 @@ desired effect
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>A</b>LT</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Reinca Portal</b></span>
+            <span class="logo-lg"><b>RBMS</b></span>
         </a>
 
         <!-- Header Navbar -->
@@ -588,7 +588,7 @@ desired effect
             Powered by Adotech
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; Reinca Portal <?= date("Y") ?>
+        <strong>Copyright &copy; Reinca Business Management System (RBMS) <?= date("Y") ?>
     </footer>
 
     <!-- Control Sidebar -->

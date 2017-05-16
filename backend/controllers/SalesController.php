@@ -114,7 +114,7 @@ class SalesController extends Controller
                     if ($model->total_amount == ($_POST['Sales']['paid_amount']+$_POST['Sales']['discount'])) {
                         $model->status = Sales::CREDIT;
                         $model->paid_amount=0;
-                        $model->due_amount = $model->total_amount;
+                        $model->due_amount = $model->total_amount-$_POST['Sales']['discount'];
                         $flag=1;
                     } elseif ($model->total_amount > ($_POST['Sales']['paid_amount']+$_POST['Sales']['discount'])) {
                         $model->status = Sales::CREDIT;

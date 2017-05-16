@@ -8,7 +8,7 @@ use backend\models\SalesSearch;
 /* @var $searchModel backend\models\SalesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Sales report from ').$from. ' to '.$to;
+$this->title = Yii::t('app', 'Purchase report from ').$from. ' to '.$to;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sales-index">
@@ -16,17 +16,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    
     <?= DataTables::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'trn_dt',
-            'total_amount',
-            'paid_amount',
-            'due_amount',
+            'prchs_dt',
+            [
+                    'attribute'=>'product_id',
+                    'value'=>'product.product_name',
+            ],
+            'qty',
+            'total',
+
 
 
         ],

@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title ='Reinca Portal';
+$this->title ='RBMS';
 use yii\bootstrap\Html;
 use backend\models\SalesItem;
 use backend\models\Purchase;
@@ -38,7 +38,7 @@ use backend\models\Inventory;
     </div>
 
 
-    <p style="padding: 10px" class="text-primary">Welcome to TangoPos, choose a common task below to get started!</p>
+    <p style="padding: 10px" class="text-primary">Welcome to Reinca Business Management System , choose a common task below to get started!</p>
 
 
     <div class="row">

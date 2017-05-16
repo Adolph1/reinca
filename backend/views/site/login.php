@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login">
 
 
-    <p><h2>Welcome to Biashara Solution</h2></p>
+    <p><h2>Welcome to Reinca Business Management System</h2></p>
 
     <div class="panel panel-default">
         <div class="panel-heading"><h4><?= Html::encode($this->title) ?></h4></div>
