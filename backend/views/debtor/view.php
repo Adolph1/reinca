@@ -14,16 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+
 
     <?= DetailView::widget([
         'model' => $model,
@@ -33,9 +24,51 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'amount',
             'sales_id',
-            'maker_id',
-            'maker_time',
         ],
     ]) ?>
+    <?php
+    $searchModel = new \backend\models\DebtorRepaymentSearch();
+    $dataProvider = $searchModel->searchbyId($model->id);
+    ?>
+<?= \fedemotta\datatables\DataTables::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'id',
+            'trn_dt',
+            //'debtor_id',
+            'amount',
+            'balance',
+            'maker_id',
+            'maker_time',
+
+            [
+                'class'=>'yii\grid\ActionColumn',
+                'header'=>'Actions',
+                'template'=>'{reverse}',
+                'buttons'=>[
+                    'reverse' => function ($url, $model) {
+                        $url=['debtor-repayment/reverse','id' => $model->id];
+                        return Html::a('<span class="fa fa-retweet"></span>', $url, [
+                            'title' => 'Reverse',
+                            'data-toggle'=>'tooltip','data-original-title'=>'Reverse',
+                            'class'=>'btn btn-danger',
+                            'data' => [
+                                'confirm' => Yii::t('app', 'Are you sure you want to reverse this transaction?'),
+                                'method' => 'post',
+                            ],
+
+                        ]);
+
+
+                    }
+
+
+                ]
+            ],
+        ],
+    ]); ?>
 
 </div>

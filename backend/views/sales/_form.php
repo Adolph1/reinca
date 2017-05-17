@@ -12,10 +12,12 @@ use kartik\spinner\Spinner;
 use yii\helpers\Url;
 use kartik\grid\GridView;
 use kartik\editable\Editable;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Sales */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="sales-form">
@@ -35,7 +37,7 @@ use kartik\editable\Editable;
                     //echo 'Product Name' .'<br>';
                     echo AutoComplete::widget([
                         'options'=>[
-                            'placeholder'=>'Enter product name or barcode',
+                            'placeholder'=>'Enter product name',
                             'style'=>'width:300px;padding:8px'
                         ],
                         'clientOptions' => [
@@ -172,6 +174,18 @@ use kartik\editable\Editable;
                     ]);
                     $fmt=Yii::$app->formatter;
                     ?>
+                    <div>
+                        <?= $form->field($model, 'trn_dt')->widget(DatePicker::ClassName(),
+                            [
+                                //'name' => 'purchase_date',
+                                //'value' => date('d-M-Y', strtotime('+2 days')),
+                                'options' => ['placeholder' => 'Enter date'],
+                                'pluginOptions' => [
+                                    'format' => 'yyyy-mm-dd',
+                                    'todayHighlight' => true
+                                ]
+                            ])->label(false);?>
+                    </div>
                     <div> <?= $form->field($model, 'customer_name')->textInput(['maxlength' => true,'placeholder'=>'Enter Customer name'])->label(false) ?></div>
                     <div class="panel panel-default">
                         <div class="panel-body">

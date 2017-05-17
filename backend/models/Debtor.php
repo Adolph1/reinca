@@ -96,4 +96,15 @@ class Debtor extends \yii\db\ActiveRecord
         }
 
     }
+
+    public static function getBalance($id)
+    {
+        $balance=Debtor::findOne($id);
+        if($balance!=null){
+            return $balance->amount;
+        }
+        else{
+            return 0;
+        }
+    }
 }

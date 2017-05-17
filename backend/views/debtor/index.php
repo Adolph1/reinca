@@ -29,10 +29,37 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'amount',
             'sales_id',
-            // 'maker_id',
-            // 'maker_time',
 
-            ['class' => 'yii\grid\ActionColumn','header'=>'Actions'],
+            [
+                'class'=>'yii\grid\ActionColumn',
+                'header'=>'Actions',
+                'template'=>'{view} {payment}',
+                'buttons'=>[
+                    'view' => function ($url, $model) {
+                        $url=['view','id' => $model->id];
+                        return Html::a('<span class="fa fa-eye"></span>', $url, [
+                            'title' => 'View',
+                            'data-toggle'=>'tooltip','data-original-title'=>'Save',
+                            'class'=>'btn btn-info',
+
+                        ]);
+
+
+                    },
+
+                    'payment' => function ($url, $model) {
+                        $url=['repayment','id' => $model->id];
+                        return Html::a('<span class="fa fa-money"></span>', $url, [
+                            'title' => 'Make Payment',
+                            'data-toggle'=>'tooltip','data-original-title'=>'Repayment',
+                            'class'=>'btn btn-warning',
+
+                        ]);
+
+
+                    }
+                ]
+            ],
         ],
     ]); ?>
 </div>

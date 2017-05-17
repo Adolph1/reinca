@@ -85,7 +85,6 @@ class SalesController extends Controller
 
 
             if ($model->load(Yii::$app->request->post())) {
-                $model->trn_dt = date('Y-m-d');
                 $model->maker_id = Yii::$app->user->identity->username;
                 $model->maker_time = date('Y-m-d:H:i:s');
                 $model->total_amount = Cart::getCartTotal();
@@ -136,7 +135,7 @@ class SalesController extends Controller
                         foreach ($carts as $cart) {
                             $entries = new SalesItem();
                             $entries->product_id = $cart->product_id;
-                            $entries->trn_dt = date('Y-m-d');
+                            $entries->trn_dt = $model->trn_dt;
                             $entries->sales_id = $model->id;
                             $entries->selling_price = $cart->price;
                             $entries->qty = $cart->qty;
@@ -158,7 +157,7 @@ class SalesController extends Controller
                         if($flag==1){
 
                             $debtor=new Debtor();
-                            $debtor->date=date('Y-m-d');
+                            $debtor->date=$model->trn_dt;
                             $debtor->sales_id=$model->id;
                             $debtor->amount=$model->due_amount;
                             $debtor->name=$model->customer_name;
