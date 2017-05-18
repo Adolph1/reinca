@@ -588,7 +588,7 @@ desired effect
             Powered by Adotech
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; Reinca Business Management System (RBMS) <?= date("Y") ?>
+        <strong>Copyright &copy; Reinca Interprise Limited <?= date("Y") ?>
     </footer>
 
     <!-- Control Sidebar -->

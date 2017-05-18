@@ -248,7 +248,7 @@ class Sales extends \yii\db\ActiveRecord
 
     public static function getNetSales()
     {
-        $netsales=(Sales::getTodayCashSales()+Sales::getTodayCreditSales()+Sales::getTotalAdvanceSales()+Sales::getTotalDueSales())-(Cashbook::getTodayTotalExpenses()+Cashbook::getTodayTotalPayments());
+        $netsales=(Sales::getTodayCashSales()+Sales::getTodayCreditSales()+Sales::getTotalAdvanceSales()+Sales::getTotalDueSales());
         if($netsales!=null){
             return $netsales;
         }

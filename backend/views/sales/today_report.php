@@ -138,8 +138,8 @@ use backend\models\SalesItem;
                     }
                 }?>
                 <tr><th class="text-right"></th><th class="text-right">Sub Total</th><th class="text-left"><?=$totaladvqty;?></th><th class="text-left"><?=$totaladvamount;?></th></tr>
-                <tr><th class="text-right"></th><th class="text-right"></th><th class="text-right">Total Advance payments</th><th class="text-left"><?=Sales::getTotalAdvanceSales();?></th></tr>
-                <tr><th class="text-right"></th><th class="text-right"></th><th class="text-right">Net Total</th><th class="text-left"><?= $totaladvamount-Sales::getTotalAdvanceSales();?></th></tr>
+                <tr><th class="text-right"></th><th class="text-right"></th><th class="text-right">Total advance payments</th><th class="text-left"><?=Sales::getTotalAdvanceSales();?></th></tr>
+                <tr><th class="text-right"></th><th class="text-right"></th><th class="text-right">Net advance credit</th><th class="text-left"><?= $totaladvamount-Sales::getTotalAdvanceSales();?></th></tr>
 
                 </tbody>
             </table>

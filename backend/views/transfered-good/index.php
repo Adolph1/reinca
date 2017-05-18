@@ -60,13 +60,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class'=>'yii\grid\ActionColumn',
                 'header'=>'Actions',
-                'template'=>'{confirm} {reverse}',
+                'template'=>'{view} {reverse}',
                 'buttons'=>[
-                    'confirm' => function ($url, $model) {
-                        $url=['confirm','id' => $model->id];
-                        return Html::a('<span class="fa fa-check"></span>', $url, [
-                            'title' => 'Received',
-                            'data-toggle'=>'tooltip','data-original-title'=>'Confirm',
+                    'view' => function ($url, $model) {
+                        $url=['view','id' => $model->id];
+                        return Html::a('<span class="fa fa-eye"></span>', $url, [
+                            'title' => 'View',
+                            'data-toggle'=>'tooltip','data-original-title'=>'View',
                             'class'=>'btn btn-info',
 
                         ]);

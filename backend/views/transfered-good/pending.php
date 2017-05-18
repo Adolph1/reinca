@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class'=>'yii\grid\ActionColumn',
                 'header'=>'Actions',
-                'template'=>'{confirm} {reverse}',
+                'template'=>'{confirm} {reverse} {adjust}',
                 'buttons'=>[
                     'confirm' => function ($url, $model) {
                         $url=['confirm','id' => $model->id];
@@ -73,17 +73,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                     },
-
-                    'reverse' => function ($url, $model) {
-                        $url=['reverse','id' => $model->id];
-                        return Html::a('<span class="fa fa-retweet"></span>', $url, [
-                            'title' => 'Reverse',
-                            'data-toggle'=>'tooltip','data-original-title'=>'Reverse',
+                    'adjust' => function ($url, $model) {
+                        $url=['adjust','id' => $model->id];
+                        return Html::a('<span class="fa fa-gear"></span>', $url, [
+                            'title' => 'Adjust',
+                            'data-toggle'=>'tooltip','data-original-title'=>'Adjust',
                             'class'=>'btn btn-danger',
-                            'data' => [
-                                'confirm' => Yii::t('app', 'Are you sure you want to reverse this batch?'),
-                                'method' => 'post',
-                            ],
 
                         ]);
 

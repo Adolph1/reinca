@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Adjustment;
 use backend\models\Inventory;
 use backend\models\StoreInventory;
 use Yii;
@@ -181,6 +182,25 @@ class TransferedGoodController extends Controller
         }
     }
 
+    /*
+     * adjusts branch stock
+     */
+
+    public function actionAdjust($id)
+    {
+        $adjustModel=new Adjustment();
+        $model = $this->findModel($id);
+
+        return $this->render('adjust', [
+            'model' => $model,'adjustModel'=>$adjustModel,
+        ]);
+    }
+
+
+    /*
+ * Reverse an entry
+ */
+
 
 
     /**
@@ -246,4 +266,6 @@ class TransferedGoodController extends Controller
             return "";
         }
     }
+
+
 }
